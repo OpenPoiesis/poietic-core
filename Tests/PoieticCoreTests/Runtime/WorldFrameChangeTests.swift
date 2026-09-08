@@ -24,7 +24,7 @@ import Testing
     let frameWithRemoval: DesignPlane
 
     init() throws {
-        self.design = Design(metamodel: TestMetamodel)
+        self.design = Design(metamodel: TestDomain.TestMetamodel)
 
         // --- emptyFrame ---
         let t0 = design.createPlane()
@@ -32,8 +32,8 @@ import Testing
 
         // --- frameWithTwo ---
         let t1 = design.createPlane()
-        let obj1 = t1.create(.Stock, topology: .node, attributes: ["text": "A"])
-        let obj2 = t1.create(.FlowRate, topology: .node, attributes: ["text": "B"])
+        let obj1 = t1.create(TestDomain.Types.Stock, topology: .node, attributes: ["text": "A"])
+        let obj2 = t1.create(TestDomain.Types.FlowRate, topology: .node, attributes: ["text": "B"])
         self.firstObjectID = obj1.objectID
         self.secondObjectID = obj2.objectID
         self.frameWithTwo = try design.accept(t1)

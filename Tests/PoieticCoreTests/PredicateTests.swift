@@ -17,10 +17,10 @@ import Testing
     init() throws {
         design = Design()
         
-        empty = ObjectSnapshot(type: TestType,
+        empty = ObjectSnapshot(type: TestDomain.Types.TestUnstructured,
                                snapshotID: design.identityManager.reserveNew(type: .objectSnapshot),
                                objectID: design.identityManager.reserveNew(type: .object))
-        textObject = ObjectSnapshot(type: TestTypeWithDefault,
+        textObject = ObjectSnapshot(type: TestDomain.Types.DefaultText,
                                     snapshotID: design.identityManager.reserveNew(type: .objectSnapshot),
                                     objectID: design.identityManager.reserveNew(type: .object))
         
@@ -40,12 +40,12 @@ import Testing
         #expect(!predicate.match(empty, in: frame))
     }
     @Test func typePredicate() throws {
-        #expect(Predicate.isType(TestType).match(empty, in: frame))
-        #expect(!Predicate.isType(TestEdgeType).match(empty, in: frame))
+        #expect(Predicate.isType(TestDomain.Types.TestUnstructured).match(empty, in: frame))
+        #expect(!Predicate.isType(TestDomain.Types.TestEdge).match(empty, in: frame))
     }
     @Test func traitPredicate() throws {
-        #expect(Predicate.hasTrait(TestTraitWithDefault).match(textObject, in: frame))
-        #expect(!Predicate.hasTrait(TestTraitNoDefault).match(textObject, in: frame))
+        #expect(Predicate.hasTrait(TestDomain.Traits.DefaultText).match(textObject, in: frame))
+        #expect(!Predicate.hasTrait(TestDomain.Traits.NoDefaultText).match(textObject, in: frame))
     }
 
 }

@@ -21,7 +21,7 @@ import Testing
     let reader: JSONDesignReader
     
     init() throws {
-        design = Design(metamodel: TestMetamodel)
+        design = Design(metamodel: TestDomain.TestMetamodel)
         frame = design.createPlane()
 //        reader = JSONDesignReader()
         reader = JSONDesignReader()

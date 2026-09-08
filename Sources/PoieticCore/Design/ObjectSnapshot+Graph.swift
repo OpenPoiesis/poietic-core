@@ -5,29 +5,6 @@
 //  Created by Stefan Urbanek on 20/05/2025.
 //
 
-/*
- 
- Graph uses:
- 
- edges type == parameter
- edges type == parameter && target trait formula
- node type == chart
- node on edge == chart series
- plane first: trait simulation
- view simulation nodes (custom filter)
- view incoming parameter nodes (incoming + type)
- view drains/fills (incoming/outgoing + type)
- plane type stock
- 
- incoming/outgoing + type
- edge of type
- edge of custom filter
- edge of trait
- node of trait
- node of type
-
- */
-
 extension DesignPlane /* : GraphProtocol */ {
     @inlinable
     public var nodeKeys: [ObjectID] { _graph.nodeKeys }
@@ -40,7 +17,7 @@ extension DesignPlane /* : GraphProtocol */ {
 
     public func nodes(type: ObjectType) -> [ObjectSnapshot] {
         _graph.nodeKeys.compactMap {
-            guard let node = _lookup[$0], node.type === type else {
+            guard let node = _lookup[$0], node.type.matches(type) else {
                 return nil
             }
             return node
@@ -59,7 +36,7 @@ extension DesignPlane /* : GraphProtocol */ {
 
     public func edges(type: ObjectType) -> [Edge] {
         _graph.edges.filter {
-            $0.object.type === type
+            $0.object.type.matches(type)
         }
     }
     public func edges(withTrait trait: Trait) -> [Edge] {

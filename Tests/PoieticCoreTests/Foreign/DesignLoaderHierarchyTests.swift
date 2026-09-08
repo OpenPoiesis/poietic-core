@@ -14,7 +14,7 @@ struct DesignLoaderHierarchyTests {
     let loader: DesignLoader
 
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
         self.strayIdentityManager = IdentityManager()
     }
 

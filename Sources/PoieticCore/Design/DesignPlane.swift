@@ -19,6 +19,8 @@
 /// - SeeAlso: ``TransientPlane``
 ///
 public final class DesignPlane: Plane, RCTableElement {
+    // TODO: [QUESTION] Is it worth to add per-trait and per-type index?
+
     /// Design to which the plane belongs.
     public unowned let design: Design
     

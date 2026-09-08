@@ -35,9 +35,9 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
         case .any:
             return true
         case .isType(let type):
-            return object.type === type
+            return object.type.matches(type)
         case .hasTrait(let trait):
-            return object.type.traits.contains { $0 === trait }
+            return object.type.traits.contains { $0.matches(trait) }
         case .and(let predicates):
             return predicates.allSatisfy{ $0.match(object, in: plane) }
         case .or(let predicates):

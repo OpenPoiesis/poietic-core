@@ -53,13 +53,13 @@
 /// let Stock = ObjectType(
 ///     name: "Stock",
 ///     topologyType: .node,
-///     traits: [Trait.Name, Formula, Trait.Stock]
+///     traits: [BasicDomain.Traits.Name, SimulationDomain.Traits.Formula]
 /// )
 ///
 /// let Auxiliary = ObjectType(
 ///     name: "Auxiliary",
 ///     topologyType: .node,
-///     traits: [Trait.Name, Formula, Trait.Auxiliary]
+///     traits: [BasicDomain.Traits.Name, SimulationDomain.Traits.Formula]
 /// )
 /// ```
 ///
@@ -123,6 +123,22 @@ public final class Trait: Sendable {
     public var description: String {
         let attrStr = attributes.map { $0.description }.joined(separator: ", ")
         return "\(name)(\(attrStr))"
+    }
+    
+    /// Returns `true` if the trait matches given name.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ name: String) -> Bool {
+        return self.name == name
+    }
+
+    /// Returns `true` if the trait matches name of other trait.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ other: Trait) -> Bool {
+        return self.name == other.name
     }
 }
 

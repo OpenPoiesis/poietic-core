@@ -23,9 +23,14 @@
 ///
 /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``StructuralValidator``.
 ///
+/// - Important: There must be at least one edge rule per edge type in the metamodel. To allow any edge
+///   connections, add a rule similar to this example for each edge type:
+///   ```swift
+///   EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),
+///   ```
+///
 public struct ConstraintChecker {
     // IMPORTANT: Maintain validate(...) and diagnose(...) function pairs in sync.
-    // =========
     
     /// Metamodel associated with the constraint checker. Planes and objects
     /// will be validated using the constraints and object types defined
@@ -261,7 +266,7 @@ public struct ConstraintChecker {
         let originObject = plane[origin]!
         let targetObject = plane[target]!
         
-        let typeRules = metamodel.edgeRules.filter { edgeType === $0.type }
+        let typeRules = metamodel.edgeRules.filter { edgeType.matches($0.type) }
         if typeRules.count == 0 {
             throw .edgeNotAllowed
         }
@@ -272,7 +277,7 @@ public struct ConstraintChecker {
             throw .noRuleSatisfied
         }
 
-        let outgoingCount = plane.outgoing(origin).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(origin).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
@@ -281,7 +286,7 @@ public struct ConstraintChecker {
             }
         }
         
-        let incomingCount = plane.incoming(target).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(target).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.incoming {
         case .many: break
         case .one:
@@ -293,7 +298,7 @@ public struct ConstraintChecker {
     public func validate(edge: DesignObjectEdge, in plane: some Plane) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
-        let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
+        let typeRules = metamodel.edgeRules.filter { edge.object.type.matches($0.type) }
         if typeRules.count == 0 {
             throw .edgeNotAllowed
         }
@@ -303,7 +308,7 @@ public struct ConstraintChecker {
             throw .noRuleSatisfied
         }
 
-        let outgoingCount = plane.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(edge.origin).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
@@ -312,7 +317,7 @@ public struct ConstraintChecker {
             }
         }
         
-        let incomingCount = plane.incoming(edge.target).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(edge.target).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.incoming {
         case .many: break
         case .one:
@@ -337,7 +342,7 @@ public struct ConstraintChecker {
     public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in plane: some Plane) -> Bool {
         // NOTE: Changes in this function should be synced with func validate(...)
         
-        let typeRules = metamodel.edgeRules.filter { type === $0.type }
+        let typeRules = metamodel.edgeRules.filter { type.matches($0.type) }
         guard typeRules.count > 0 else {
             return false
         }
@@ -351,14 +356,14 @@ public struct ConstraintChecker {
             return false
         }
 
-        let outgoingCount = plane.outgoing(originID).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(originID).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
             return outgoingCount == 0
         }
         
-        let incomingCount = plane.incoming(targetID).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(targetID).count { $0.object.type.matches(matchingRule.type) }
         switch matchingRule.incoming {
         case .many: break
         case .one:

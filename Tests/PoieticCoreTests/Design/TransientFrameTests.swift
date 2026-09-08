@@ -15,13 +15,13 @@ import Testing
     let plane: TransientPlane
     
     init() throws {
-        design = Design(metamodel: TestMetamodel)
+        design = Design(metamodel: TestDomain.TestMetamodel)
         plane = design.createPlane()
     }
    
     @Test func create() throws {
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
         
         #expect(plane.contains(a.objectID))
         #expect(plane.contains(b.objectID))
@@ -29,29 +29,31 @@ import Testing
     }
 
     @Test func defaultValueTrait() {
-        let a = plane.create(TestTypeNoDefault)
+        let a = plane.create(TestDomain.Types.NoDefaultText)
         #expect(a["text"] == nil)
 
-        let b = plane.create(TestTypeWithDefault)
+        let b = plane.create(TestDomain.Types.DefaultText)
         #expect(b["text"] == "default")
     }
     
     @Test func defaultValueTraitError() throws {
         // FIXME: Move to constraint checker tests
-        let a = plane.create(TestTypeNoDefault)
-        let b = plane.create(TestTypeWithDefault)
+        let a = plane.create(TestDomain.Types.NoDefaultText)
+        let b = plane.create(TestDomain.Types.DefaultText)
 
         let checker = ConstraintChecker(plane.design.metamodel)
         let result = checker.diagnose(plane)
         let objErrors = try #require(result.objectErrors[a.objectID])
         #expect(result.violations.count == 0)
         #expect(result.objectErrors.count == 1)
-        #expect(objErrors.first == ObjectTypeError.missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
+        #expect(objErrors.first == ObjectTypeError.missingTraitAttribute(
+            TestDomain.Traits.NoDefaultText.attributes[0], "NoDefaultText")
+        )
         #expect(result.objectErrors[b.objectID] == nil)
     }
 
     @Test func derivedStructureIsPreserved() throws {
-        let original = plane.create(TestNodeType, topology: .node)
+        let original = plane.create(TestDomain.Types.TestNode, topology: .node)
         let originalPlane = try design.accept(plane)
         
         let derivedPlane = design.createPlane(deriving: originalPlane)
@@ -63,7 +65,7 @@ import Testing
     // MARK: Basics
     
     @Test func setAttribute() throws {
-        let obj = plane.create(TestType, attributes: ["text": Variant("before")])
+        let obj = plane.create(TestDomain.Types.TestUnstructured, attributes: ["text": Variant("before")])
         
         obj.setAttribute(value: Variant("after"), forKey: "text")
         
@@ -75,7 +77,7 @@ import Testing
     // Mutate
     
     @Test func mutateBasicBehavior() throws {
-        let obj = plane.create(TestType)
+        let obj = plane.create(TestDomain.Types.TestUnstructured)
         let originalSnap = try #require(plane[obj.objectID])
         try design.accept(plane)
         
@@ -90,7 +92,7 @@ import Testing
     }
 
     @Test func mutatePreservesAttributes() throws {
-        let obj = plane.create(TestType, attributes: ["text": "hello"])
+        let obj = plane.create(TestDomain.Types.TestUnstructured, attributes: ["text": "hello"])
         try design.accept(plane)
         
         let derived = design.createPlane(deriving: design.currentPlane!)
@@ -101,7 +103,7 @@ import Testing
     
 
     @Test func originalValuePreservedOnMutate() throws {
-        let object = plane.create(TestType, attributes: ["text": Variant("before")])
+        let object = plane.create(TestDomain.Types.TestUnstructured, attributes: ["text": Variant("before")])
         let original = try design.accept(plane)
         
         let plane2 = design.createPlane(deriving: original)
@@ -121,9 +123,9 @@ import Testing
     
 
     @Test func removeObjectCascading() throws {
-        let node1 = plane.create(TestNodeType)
-        let node2 = plane.create(TestNodeType)
-        let edge = plane.create(TestEdgeType, topology: .edge(node1.objectID, node2.objectID))
+        let node1 = plane.create(TestDomain.Types.TestNode)
+        let node2 = plane.create(TestDomain.Types.TestNode)
+        let edge = plane.create(TestDomain.Types.TestEdge, topology: .edge(node1.objectID, node2.objectID))
         
         let removed = plane.removeCascading(node1.objectID)
         #expect(removed.count == 2)
@@ -136,7 +138,7 @@ import Testing
     }
 
     @Test func onlyOriginalsRemoved() throws {
-        let originalNode = plane.create(TestNodeType, topology: .node)
+        let originalNode = plane.create(TestDomain.Types.TestNode, topology: .node)
         let original = try design.accept(plane)
         
         let trans = design.createPlane(deriving: original)
@@ -145,7 +147,7 @@ import Testing
         #expect(trans.snapshots.isEmpty)
         #expect(!trans.contains(snapshotID: originalNode.snapshotID))
 
-        let newNode = trans.create(TestNodeType)
+        let newNode = trans.create(TestDomain.Types.TestNode)
 
         #expect(trans.removedObjects.count == 1)
         #expect(!trans.removedObjects.contains(newNode.objectID))
@@ -156,7 +158,7 @@ import Testing
     }
 
     @Test func replaceObject() throws {
-        let originalNode = plane.create(TestNodeType, topology: .node)
+        let originalNode = plane.create(TestDomain.Types.TestNode, topology: .node)
         let original = try design.accept(plane)
 
         let trans = design.createPlane(deriving: original)
@@ -165,7 +167,7 @@ import Testing
         #expect(trans.removedObjects.count == 1)
         #expect(trans.removedObjects.contains(originalNode.objectID))
 
-        let newNode = trans.create(TestNodeType, objectID: originalNode.objectID)
+        let newNode = trans.create(TestDomain.Types.TestNode, objectID: originalNode.objectID)
 
         #expect(trans.contains(snapshotID: newNode.snapshotID))
         #expect(trans.removedObjects.count == 0)
@@ -174,7 +176,7 @@ import Testing
 
     @Test func mutableObjectRemovesPreviousSnapshot() throws {
         let original = design.createPlane()
-        let originalSnap = original.create(TestType)
+        let originalSnap = original.create(TestDomain.Types.TestUnstructured)
         try design.accept(original)
         
         let derived = design.createPlane(deriving: design.currentPlane!)
@@ -193,9 +195,9 @@ import Testing
     // MARK: Parent-child
     
     @Test func addChild() throws {
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
-        let c = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
+        let c = plane.create(TestDomain.Types.TestUnstructured)
         
         plane.addChild(b.objectID, to: a.objectID)
         plane.addChild(c.objectID, to: a.objectID)
@@ -207,9 +209,9 @@ import Testing
     
 
     @Test func removeChild() throws {
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
-        let c = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
+        let c = plane.create(TestDomain.Types.TestUnstructured)
         
         plane.addChild(b.objectID, to: a.objectID)
         plane.addChild(c.objectID, to: a.objectID)
@@ -223,9 +225,9 @@ import Testing
     }
     
     @Test func setParent() throws {
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
-        let c = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
+        let c = plane.create(TestDomain.Types.TestUnstructured)
         
         plane.addChild(b.objectID, to: a.objectID)
         plane.setParent(c.objectID, to: a.objectID)
@@ -243,9 +245,9 @@ import Testing
     }
     
     @Test func removeFromParent() throws {
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
-        let c = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
+        let c = plane.create(TestDomain.Types.TestUnstructured)
         
         plane.addChild(b.objectID, to: a.objectID)
         plane.addChild(c.objectID, to: a.objectID)
@@ -260,9 +262,9 @@ import Testing
     }
 
     @Test func removeFromUnownedParentMutates() throws {
-        let p = plane.create(TestType)
-        let c1 = plane.create(TestType)
-        let c2 = plane.create(TestType)
+        let p = plane.create(TestDomain.Types.TestUnstructured)
+        let c1 = plane.create(TestDomain.Types.TestUnstructured)
+        let c2 = plane.create(TestDomain.Types.TestUnstructured)
         
         plane.addChild(c1.objectID, to: p.objectID)
         plane.addChild(c2.objectID, to: p.objectID)
@@ -279,12 +281,12 @@ import Testing
         // a - b - c
         // d - e - f
         //
-        let a = plane.create(TestType)
-        let b = plane.create(TestType)
-        let c = plane.create(TestType)
-        let d = plane.create(TestType)
-        let e = plane.create(TestType)
-        let f = plane.create(TestType)
+        let a = plane.create(TestDomain.Types.TestUnstructured)
+        let b = plane.create(TestDomain.Types.TestUnstructured)
+        let c = plane.create(TestDomain.Types.TestUnstructured)
+        let d = plane.create(TestDomain.Types.TestUnstructured)
+        let e = plane.create(TestDomain.Types.TestUnstructured)
+        let f = plane.create(TestDomain.Types.TestUnstructured)
 
         plane.addChild(b.objectID, to: a.objectID)
         plane.addChild(c.objectID, to: b.objectID)
@@ -303,9 +305,9 @@ import Testing
     }
     
     @Test func deriveObjectPreservesParentChild() throws {
-        let obj = plane.create(TestNodeType, topology: .node)
-        let parent = plane.create(TestNodeType, topology: .node)
-        let child = plane.create(TestNodeType, topology: .node)
+        let obj = plane.create(TestDomain.Types.TestNode, topology: .node)
+        let parent = plane.create(TestDomain.Types.TestNode, topology: .node)
+        let child = plane.create(TestDomain.Types.TestNode, topology: .node)
         plane.setParent(obj.objectID, to: parent.objectID)
         plane.setParent(child.objectID, to: obj.objectID)
         
@@ -325,9 +327,9 @@ import Testing
     }
     
     @Test func parentChildIsPreservedOnAccept() throws {
-        let obj = plane.create(TestNodeType, topology: .node)
-        let parent = plane.create(TestNodeType, topology: .node)
-        let child = plane.create(TestNodeType, topology: .node)
+        let obj = plane.create(TestDomain.Types.TestNode, topology: .node)
+        let parent = plane.create(TestDomain.Types.TestNode, topology: .node)
+        let child = plane.create(TestDomain.Types.TestNode, topology: .node)
 
         plane.setParent(obj.objectID, to: parent.objectID)
         plane.setParent(child.objectID, to: obj.objectID)
@@ -342,7 +344,7 @@ import Testing
     // MARK: References and Referential Integrity
     
     @Test func brokenReferences() throws {
-        let object = plane.create(TestEdgeType,
+        let object = plane.create(TestDomain.Types.TestEdge,
                                   objectID: 5,
                                   topology: .edge(30, 40),
                                   parent: 10,
@@ -358,7 +360,7 @@ import Testing
     }
     
     @Test func rejectBrokenEdgeEndpoint() throws {
-        let object = plane.create(TestEdgeType, objectID: 10, topology: .edge(900, 901))
+        let object = plane.create(TestDomain.Types.TestEdge, objectID: 10, topology: .edge(900, 901))
         let refs = StructuralValidator.brokenReferences(object, in: plane)
         #expect(refs.count == 2)
         #expect(refs.contains(ObjectID(900)))
@@ -370,7 +372,7 @@ import Testing
     }
 
     @Test func rejectMissingParent() throws {
-        let object = plane.create(TestType, objectID: 20, parent: 902)
+        let object = plane.create(TestDomain.Types.TestUnstructured, objectID: 20, parent: 902)
         let refs = StructuralValidator.brokenReferences(object, in: plane)
 
         #expect(refs.count == 1)
@@ -381,7 +383,7 @@ import Testing
     }
 
     @Test func rejectMissingChild() throws {
-        let object = plane.create(TestType, objectID: 20, children: [903])
+        let object = plane.create(TestDomain.Types.TestUnstructured, objectID: 20, children: [903])
         let refs = StructuralValidator.brokenReferences(object, in: plane)
 
         #expect(refs.count == 1)
@@ -392,9 +394,9 @@ import Testing
     }
 
     @Test func rejectBrokenParentChild() throws {
-        plane.create(TestType, objectID: 10, children: [20])
-        plane.create(TestType, objectID: 20, parent: 30)
-        plane.create(TestType, objectID: 30)
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 10, children: [20])
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 20, parent: 30)
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 30)
 
         #expect {
             try StructuralValidator.validate(snapshots: plane.snapshots, in: plane)
@@ -407,8 +409,8 @@ import Testing
     }
     
     @Test func rejectBrokenParentNoChild() throws {
-        plane.create(TestType, objectID: 10, parent: 30)
-        plane.create(TestType, objectID: 30)
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 10, parent: 30)
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 30)
 
         #expect {
             try StructuralValidator.validate(snapshots: plane.snapshots, in: plane)
@@ -421,8 +423,8 @@ import Testing
     }
 
     @Test func rejectBrokenParentChildCycle() throws {
-        plane.create(TestType, objectID: 10, parent: 30, children: [30])
-        plane.create(TestType, objectID: 30, parent: 10, children: [10])
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 10, parent: 30, children: [30])
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 30, parent: 10, children: [10])
 
         #expect{
             try StructuralValidator.validate(snapshots: plane.snapshots, in: plane)
@@ -436,8 +438,8 @@ import Testing
     }
     
     @Test func rejectEdgeEndpointNotANode() throws {
-        plane.create(TestEdgeType, objectID: 10, topology: .edge(20, 20))
-        plane.create(TestType, objectID: 20)
+        plane.create(TestDomain.Types.TestEdge, objectID: 10, topology: .edge(20, 20))
+        plane.create(TestDomain.Types.TestUnstructured, objectID: 20)
 
         #expect {
             try StructuralValidator.validate(snapshots: plane.snapshots, in: plane)
@@ -454,7 +456,7 @@ import Testing
         #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
-        plane.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
+        plane.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         #expect(design.identityManager.isReserved(ObjectSnapshotID(10), type: .objectSnapshot))
         #expect(design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
@@ -462,7 +464,7 @@ import Testing
     }
 
     @Test func reserveAndAccept() throws {
-        plane.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
+        plane.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         try design.accept(plane)
         #expect(!design.identityManager.isReserved(ObjectID(10), type: .object))
         #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))
@@ -471,7 +473,7 @@ import Testing
     }
 
     @Test func reserveAndDiscard() throws {
-        plane.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
+        plane.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         design.discard(plane)
         #expect(!design.identityManager.isReserved(ObjectID(10), type: .object))
         #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))

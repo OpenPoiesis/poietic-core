@@ -36,9 +36,8 @@
 ///     name: "Stock",
 ///     topologyType: .node,
 ///     traits: [
-///         Trait.Name,
-///         Trait.Formula,
-///         Trait.Stock,
+///         BasicDomain.Traits.Name,
+///         SimulationDomain.Traits.Formula,
 ///     ],
 ///     abstract: "A reservoir that accumulates quantities over time",
 ///     secondaryLabelAttribute: "formula"
@@ -54,6 +53,9 @@
 /// - Note: For edge object types (``topologyType`` is ``TopologyType/edge``),
 ///         you must define a corresponding ``EdgeRule`` in the metamodel, otherwise
 ///         edges of this type will fail validation.
+///
+/// - Note: To compare two object types use the ``matches(_:)-(ObjectType)`` instead of identity
+///         operator (`===`).
 ///
 /// - SeeAlso: ``Metamodel``, ``Trait``, ``EdgeRule``, ``TopologyType``
 ///
@@ -191,11 +193,29 @@ public final class ObjectType: Sendable {
         self.attributeByName = attributeMap
 
     }
-   
-    /// Returns `true` of the object type has a given trait.
+    /// Returns `true` if the object type matches given name.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ name: String) -> Bool {
+        return self.name == name
+    }
+
+    /// Returns `true` if the object type matches name of other object type.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ other: ObjectType) -> Bool {
+        return self.name == other.name
+    }
+
+    /// Returns `true` of the object type has a trait that matches the
+    /// other trait.
+    ///
+    /// - SeeAlso: ``Trait/matches(_:)-(Trait)``.
     ///
     public func hasTrait(_ trait: Trait) -> Bool {
-        traits.contains { $0 === trait }
+        traits.contains { $0.matches(trait) }
     }
 
     /// Returns `true` of the object type has a trait with given name.

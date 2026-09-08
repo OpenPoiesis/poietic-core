@@ -33,7 +33,7 @@ struct ManyRelationship: Relationship, Sendable {
     
     init() throws {
         // Create a test design with a few objects
-        self.design = Design(metamodel: TestMetamodel)
+        self.design = Design(metamodel: TestDomain.TestMetamodel)
         let trans1 = design.createPlane()
         
         self.emptyFrame = try design.accept(trans1)
@@ -41,9 +41,9 @@ struct ManyRelationship: Relationship, Sendable {
         let trans2 = design.createPlane()
         
         // Create some test objects with proper topology
-        let obj1 = trans2.create(.Stock, topology: .node)
-        let obj2 = trans2.create(.FlowRate, topology: .node)
-        let obj3 = trans2.create(.Stock, topology: .node)
+        let obj1 = trans2.create(TestDomain.Types.Stock, topology: .node)
+        let obj2 = trans2.create(TestDomain.Types.FlowRate, topology: .node)
+        let obj3 = trans2.create(TestDomain.Types.Stock, topology: .node)
         self.objectIDs = [obj1.objectID, obj2.objectID, obj3.objectID]
         self.testFrame = try design.accept(trans2)
     }

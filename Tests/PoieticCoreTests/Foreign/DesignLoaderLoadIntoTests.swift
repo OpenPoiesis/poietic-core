@@ -14,8 +14,8 @@ struct DesignLoaderLoadIntoTests {
     let design: Design
 
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
-        self.design = Design(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
+        self.design = Design(metamodel: TestDomain.TestMetamodel)
     }
 
     // MARK: - Core Functionality Tests
@@ -23,7 +23,7 @@ struct DesignLoaderLoadIntoTests {
     @Test("Load into transient plane marks it as changed")
     func loadIntoHasChanges() async throws {
         let trans = design.createPlane()
-        let raw = RawSnapshot(typeName: "TestPlain")
+        let raw = RawSnapshot(typeName: "TestUnstructured")
         try loader.load([raw], into: trans)
 
         #expect(trans.snapshots.count == 1)
@@ -33,7 +33,7 @@ struct DesignLoaderLoadIntoTests {
     @Test("Loading same snapshot multiple times creates different objects")
     func loadIntoMultipleTimes() async throws {
         let trans = design.createPlane()
-        let raw = RawSnapshot(typeName: "TestPlain")
+        let raw = RawSnapshot(typeName: "TestUnstructured")
 
         // Load the same snapshot twice
         try loader.load([raw], into: trans)
@@ -77,7 +77,7 @@ struct DesignLoaderLoadIntoTests {
         let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain")
+                RawSnapshot(typeName: "TestUnstructured")
             ]
         )
         try loader.load(rawDesign, into: trans)
@@ -91,9 +91,9 @@ struct DesignLoaderLoadIntoTests {
         let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(10)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(20)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(30)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(20)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(30)),
             ],
             planes: [
                 RawPlane(id: .int(1000), snapshots: [.int(10)]),
@@ -228,9 +228,9 @@ struct DesignLoaderLoadIntoTests {
     @Test("Simulated copy-paste workflow")
     func simulatedPaste() async throws {
         let trans1 = design.createPlane()
-        let a = trans1.createNode(TestNodeType, attributes: ["name": "a"])
-        let b = trans1.createNode(TestNodeType, attributes: ["name": "b"])
-        let edge = trans1.createEdge(TestEdgeType, origin: a.objectID, target: b.objectID, attributes: ["name": "edge"])
+        let a = trans1.createNode(TestDomain.Types.TestNode, attributes: ["name": "a"])
+        let b = trans1.createNode(TestDomain.Types.TestNode, attributes: ["name": "b"])
+        let edge = trans1.createEdge(TestDomain.Types.TestEdge, origin: a.objectID, target: b.objectID, attributes: ["name": "edge"])
         let plane1 = try design.accept(trans1)
 
         // Copy

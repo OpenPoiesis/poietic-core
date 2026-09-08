@@ -15,7 +15,7 @@ import Testing
     let design: Design
     
     init() throws {
-        self.metamodel = TestMetamodel
+        self.metamodel = TestDomain.TestMetamodel
         self.design = Design(metamodel: self.metamodel)
     }
     
@@ -44,8 +44,8 @@ import Testing
     
     @Test func simpleAccept() throws {
         let frame = design.createPlane()
-        let a = frame.create(TestType)
-        let b = frame.create(TestType)
+        let a = frame.create(TestDomain.Types.TestUnstructured)
+        let b = frame.create(TestDomain.Types.TestUnstructured)
         
         #expect(design.versionHistory.count == 0)
         
@@ -62,7 +62,7 @@ import Testing
     }
     @Test func acceptUseReservations() throws {
         let trans = design.createPlane(id: PlaneID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
+        trans.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(10)))
         #expect(design.identityManager.isUsed(ObjectSnapshotID(20)))
@@ -72,7 +72,7 @@ import Testing
     }
     @Test func discard() throws {
         let frame = design.createPlane()
-        let _ = frame.create(TestType)
+        let _ = frame.create(TestDomain.Types.TestUnstructured)
         
         design.discard(frame)
         
@@ -82,7 +82,7 @@ import Testing
     
     @Test func removeFrame() throws {
         let frame = design.createPlane()
-        let a = frame.create(TestType)
+        let a = frame.create(TestDomain.Types.TestUnstructured)
         
         try design.accept(frame)
         #expect(design.snapshot(a.snapshotID) != nil)
@@ -93,7 +93,7 @@ import Testing
     }
     @Test func removeFrameReleaseID() throws {
         let trans = design.createPlane(id: PlaneID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
+        trans.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(1000)))
         design.removePlane(PlaneID(1000))
@@ -103,7 +103,7 @@ import Testing
     }
     @Test func removeFrameRetainNeededIDs() throws {
         let trans = design.createPlane(id: PlaneID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
+        trans.create(TestDomain.Types.TestUnstructured, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         let original = try design.accept(trans)
         let trans2 = design.createPlane(deriving: original, id: PlaneID(2000))
         let mut = trans2.mutate(ObjectID(10))
@@ -141,12 +141,12 @@ import Testing
     @Test func removeObjectInOrderedSet() throws {
         let originalFrame = design.createPlane()
         
-        let a = originalFrame.create(TestType)
-        let b = originalFrame.create(TestType)
-        let c = originalFrame.create(TestType)
-        let order1 = originalFrame.create(TestOrderType,
+        let a = originalFrame.create(TestDomain.Types.TestUnstructured)
+        let b = originalFrame.create(TestDomain.Types.TestUnstructured)
+        let c = originalFrame.create(TestDomain.Types.TestUnstructured)
+        let order1 = originalFrame.create(TestDomain.Types.TestOrder,
                                           topology: .orderedSet(a.objectID, []))
-        let order2 = originalFrame.create(TestOrderType,
+        let order2 = originalFrame.create(TestDomain.Types.TestOrder,
                                           topology: .orderedSet(b.objectID, [c.objectID]))
         try design.accept(originalFrame)
         
@@ -176,7 +176,7 @@ import Testing
     @Test func removeObject() throws {
         let originalFrame = design.createPlane()
         
-        let a = originalFrame.create(TestType)
+        let a = originalFrame.create(TestDomain.Types.TestUnstructured)
         try design.accept(originalFrame)
         
         let originalVersion = design.currentPlaneID
@@ -200,7 +200,7 @@ import Testing
 
     @Test func refCountAndGarbageCollect() throws {
         let trans1 = design.createPlane()
-        let a = trans1.create(TestType)
+        let a = trans1.create(TestDomain.Types.TestUnstructured)
         
         let frame1 = try design.accept(trans1)
         #expect(design.contains(snapshot: a.snapshotID))
@@ -218,8 +218,8 @@ import Testing
 
     @Test func iterateAllDesignSnapshots() throws {
         let trans = design.createPlane()
-        let a = trans.create(TestType)
-        let b = trans.create(TestType)
+        let a = trans.create(TestDomain.Types.TestUnstructured)
+        let b = trans.create(TestDomain.Types.TestUnstructured)
 
         try design.accept(trans)
         #expect(design.contains(snapshot: a.snapshotID))
@@ -234,11 +234,11 @@ import Testing
         let v0 = design.currentPlaneID!
         
         let frame1 = design.createPlane(deriving: design.currentPlane!)
-        let a = frame1.create(TestType)
+        let a = frame1.create(TestDomain.Types.TestUnstructured)
         try design.accept(frame1)
         
         let frame2 = design.createPlane(deriving: design.currentPlane!)
-        let b = frame2.create(TestType)
+        let b = frame2.create(TestDomain.Types.TestUnstructured)
         try design.accept(frame2)
         
         #expect(design.currentPlane!.contains(a.objectID))
@@ -266,11 +266,11 @@ import Testing
         let v0 = design.currentPlaneID!
         
         let frame1 = design.createPlane(deriving: design.currentPlane!)
-        let a = frame1.create(TestType)
+        let a = frame1.create(TestDomain.Types.TestUnstructured)
         try design.accept(frame1)
         
         let frame2 = design.createPlane(deriving: design.currentPlane!)
-        let b = frame2.create(TestType)
+        let b = frame2.create(TestDomain.Types.TestUnstructured)
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
@@ -346,13 +346,13 @@ import Testing
         let v0 = design.currentPlaneID!
         
         let discardedFrame = design.createPlane(deriving: design.currentPlane!)
-        let discardedObject = discardedFrame.create(TestType)
+        let discardedObject = discardedFrame.create(TestDomain.Types.TestUnstructured)
         try design.accept(discardedFrame)
         
         design.undo(to: v0)
         
         let frame2 = design.createPlane(deriving: design.currentPlane!)
-        let b = frame2.create(TestType)
+        let b = frame2.create(TestDomain.Types.TestUnstructured)
         try design.accept(frame2)
         
         #expect(!design.currentPlane!.contains(discardedObject.objectID))
@@ -370,13 +370,12 @@ import Testing
         let constraint = Constraint(name: "test",
                                     match: .any,
                                     requirement: RejectAll())
-        let metamodel = Metamodel(merging: TestMetamodel,
-                                  Metamodel(constraints: [constraint]))
+        let metamodel = Metamodel(merging: TestDomain.NameTestMetamodel, Metamodel(constraints: [constraint]))
         let design = Design(metamodel: metamodel)
         
         let frame = design.createPlane()
-        let a = frame.createNode(TestNodeType)
-        let b = frame.createNode(TestNodeType)
+        let a = frame.createNode(TestDomain.Types.TestNode)
+        let b = frame.createNode(TestDomain.Types.TestNode)
         
         #expect {
             try design.accept(frame)
@@ -440,8 +439,8 @@ import Testing
     // MARK: Name Query
     @Test func namedExactBeforeNormalized() throws {
         let trans = design.createPlane()
-        trans.create(NamedNodeType, objectID: ObjectID(10), topology: .node, attributes: ["name": "long_name"])
-        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+        trans.create(TestDomain.Types.NamedNode, objectID: ObjectID(10), topology: .node, attributes: ["name": "long_name"])
+        trans.create(TestDomain.Types.NamedNode, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
 
         let plane = try design.accept(trans)
 
@@ -453,7 +452,7 @@ import Testing
     }
     @Test func normalizedNameQuery() throws {
         let trans = design.createPlane()
-        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+        trans.create(TestDomain.Types.NamedNode, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
 
         let plane = try design.accept(trans)
 
@@ -465,7 +464,7 @@ import Testing
     
     @Test func namedReferenceQuery() throws {
         let trans = design.createPlane()
-        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+        trans.create(TestDomain.Types.NamedNode, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
 
         let plane = try design.accept(trans)
 

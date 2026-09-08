@@ -26,7 +26,7 @@ public struct ExpressionParserSystem: System {
     public static func update(_ world: World) throws (InternalSystemError) {
         guard let plane = world.plane else { return }
         
-        for object in plane.filter(trait: .Formula) {
+        for object in plane.filter(trait: SimulationDomain.Traits.Formula) {
             guard let formula: String = object["formula"],
                   let entity = world.entity(object.objectID)
             else { continue }

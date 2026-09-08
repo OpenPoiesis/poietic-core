@@ -78,29 +78,26 @@ extension Plane {
     /// design info object.
     ///
     public func first(type: ObjectType) -> ObjectSnapshot? {
-        return snapshots.first { $0.type === type }
+        return snapshots.first { $0.type.matches(type) }
     }
     
     /// Filter snapshots by object type.
     ///
-    /// - Note: The type is compared for identity, that means that the snapshots
-    /// must have exactly the provided object type instance associated.
+    /// - Note: The type is compared my name matching. See ``ObjectType/matches(_:)-(ObjectType)``
     ///
     public func filter(type: ObjectType) -> [ObjectSnapshot] {
-        return snapshots.filter { $0.type === type }
+        return snapshots.filter { $0.type.matches(type) }
     }
     
     /// Filter objects with given trait.
     ///
     /// Returns objects that have the specified trait.
     ///
-    /// - Note: The trait is compared using identity, therefore the snapshot
-    ///   matching the filter must have exactly the provided trait associated
-    ///   with the object's type.
+    /// - Note: The trait is compared my name matching. See ``Trait/matches(_:)-(Trait)``
     ///
     public func filter(trait: Trait) -> [ObjectSnapshot] {
         return snapshots.filter {
-            $0.type.traits.contains { $0 === trait }
+            $0.type.traits.contains { $0.matches(trait) }
         }
     }
     
@@ -254,7 +251,7 @@ extension Plane {
         var types: [ObjectType] = []
         for id in ids {
             guard let object = self[id] else { continue }
-            if types.contains(where: { $0 === object.type}) {
+            if types.contains(where: { $0.matches(object.type)}) {
                 continue
             }
             else {
@@ -280,7 +277,7 @@ extension Plane {
                 if type.hasTrait(trait) {
                     continue
                 }
-                traits.removeAll { $0 === trait }
+                traits.removeAll { $0.matches(trait) }
             }
         }
         return traits

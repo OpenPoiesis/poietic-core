@@ -40,32 +40,67 @@
 /// ## Metamodel Composition
 ///
 /// Metamodels can be composed from multiple domain-specific metamodels using the
-/// ``init(name:version:merging:)`` initialiser. When merging, later definitions override
-/// earlier ones for traits, types, and constraints with the same name.
+/// ``init(name:version:merging:)`` initialiser. This is a simple composition method provided for
+/// convenience. When merging multiple metamodels, the referenced items (object types, traits,
+/// constraints) that share the same name must be of the same identity (same instances).
 ///
 /// ## Example
 ///
+/// The following example shows a minimal Stock-Flow domain metamodel. The `StockFlowDomain` enum
+/// is a convenience namespace for the domain object types.
+///
 /// ```swift
+///
+/// enum StockFlowDomain {
+///     static let Stock = ObjectType(
+///         name: "Stock",
+///         topologyType: .node,
+///         traits: [
+///             BasicDomain.Traits.Name,
+///             BasicDomain.Traits.Position,
+///             SimulationDomain.Traits.Formula,
+///         ],
+///     )
+///     static let FlowRate = ObjectType(
+///         name: "FlowRate",
+///         topologyType: .node,
+///         traits: [
+///             BasicDomain.Traits.Position,
+///             SimulationDomain.Traits.Formula,
+///         ],
+///     )
+///     static let Fills = ObjectType(name: "Fills", topologyType: .edge)
+///     static let Drains = ObjectType(name: "Drains", topologyType: .edge)
+///     static let Parameter = ObjectType(name: "Parameter", topologyType: .edge)
+/// }
+///
 /// let metamodel = Metamodel(
-///     name: "MyDomain",
+///     name: "StockFlow",
 ///     version: SemanticVersion(1, 0, 0),
 ///     traits: [
-///         Trait.Name,
-///         Trait.Formula,
-///         Trait.Position
+///         BasicDomain.Traits.Name,
+///         BasicDomain.Traits.Position,
+///         SimulationDomain.Traits.Formula,
 ///     ],
 ///     types: [
-///         ObjectType.Stock,
-///         ObjectType.Flow,
-///         ObjectType.Parameter
+///         StockFlowDomain.Stock,
+///         StockFlowDomain.FlowRate,
+///         StockFlowDomain.Fills,
+///         StockFlowDomain.Drains,
+///         StockFlowDomain.Parameter,
 ///     ],
 ///     edgeRules: [
-///         EdgeRule(type: ObjectType.Parameter, incoming: .many, outgoing: .many),
-///         EdgeRule(type: ObjectType.Flow,
-///                  origin: .isType(ObjectType.Stock),
-///                  target: .isType(ObjectType.FlowRate),
+///         EdgeRule(type: StockFlowDomain.Parameter, incoming: .many, outgoing: .many),
+///         EdgeRule(type: StockFlowDomain.Fills,
+///                  origin: .isType(StockFlowDomain.FlowRate),
+///                  target: .isType(StockFlowDomain.Stock),
 ///                  outgoing: .one,
-///                  incoming: .one)
+///                  incoming: .one),
+///         EdgeRule(type: StockFlowDomain.Drains,
+///                  origin: .isType(StockFlowDomain.Stock),
+///                  target: .isType(StockFlowDomain.FlowRate),
+///                  outgoing: .one,
+///                  incoming: .one),
 ///     ],
 ///     constraints: [
 ///         Constraint(
@@ -105,6 +140,14 @@ public final class Metamodel: Sendable {
     ///
     public let constraints: [Constraint]
 
+    /// Edge rules that the design must satisfy to be valid.
+    ///
+    /// - Important: There must be at least one edge rule per edge type. To allow any edge
+    ///   connections, add a rule similar to this example for each edge type:
+    ///   ```swift
+    ///   EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),
+    ///   ```
+    ///
     public let edgeRules: [EdgeRule]
     
     /// Create a new empty metamodel.
@@ -125,17 +168,50 @@ public final class Metamodel: Sendable {
     ///   - version: Version of the metamodel.
     ///   - traits: List of traits used or possible in the metamodel.
     ///   - types: List of object types validated by the metamodel.
-    ///   - edgeRules: List of edge rules used for validation.
+    ///   - edgeRules: List of edge rules used for validation (see note below).
     ///   - constraints: List of constraints that are used for design validation.
     ///
     ///  - SeeAlso: ``ConstraintChecker``, ``EdgeRule``.
+    ///
+    /// - Important: There must be at least one edge rule per edge type. To allow any edge
+    ///   connections, add a rule similar to this example for each edge type:
+    ///   ```swift
+    ///   EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),
+    ///   ```
+    ///
+    /// - Precondition: Traits must have unique name.
+    /// - Precondition: Traits used in the object types must exist in the `traits` list and
+    ///   must be the same instances as the traits in the list.
     ///
     public init(name: String? = nil,
                 version: SemanticVersion? = nil,
                 traits: [Trait] = [],
                 types: [ObjectType] = [],
                 edgeRules: [EdgeRule] = [],
-                constraints: [Constraint] = []) {
+                constraints: [Constraint] = [])
+    {
+        var seenTraits: [Trait] = []
+        var traitNames: Set<String> = Set()
+
+        for trait in traits {
+            if let existing = seenTraits.first(where: { $0.name == trait.name }) {
+                precondition(existing === trait,
+                             "Duplicate traits with name \(trait.name) are different instances")
+            }
+            else {
+                seenTraits.append(trait)
+                traitNames.insert(trait.name)
+            }
+        }
+
+        for type in types {
+            for trait in type.traits {
+                precondition(traitNames.contains(trait.name),
+                             "Missing metamodel trait \(trait.name) for type \(type.name)")
+            }
+        }
+        Self._validateTraitIdentity(knownTraits: traits, types: types)
+
         self.name = name
         self.version = version
         self.traits = traits
@@ -143,16 +219,28 @@ public final class Metamodel: Sendable {
         self.edgeRules = edgeRules
         self.constraints = constraints
     }
+    
+    static func _validateTraitIdentity(knownTraits: [Trait], types: [ObjectType]) {
+        for type in types {
+            for trait in type.traits {
+                guard knownTraits.contains(where: { $0 === trait }) else {
+                    preconditionFailure("Trait \(trait.name) is of a different identity from known trait with same name")
+                }
+            }
+        }
+    }
    
     /// Create a metamodel by merging multiple metamodels.
     ///
-    /// If multiple traits, constraints and object types have the same name, then the later
-    /// in the list will replace the former.
+    /// - Precondition: Duplicate names are allowed only when the items (traits, object types and
+    ///   constraints), are the same instance (when their identity is equal `===`).
+    /// - Precondition: Traits used by object types must exist in the list of traits.
     ///
     public init(name: String? = nil, version: SemanticVersion? = nil, merging metamodels: Metamodel ...) {
         var traits: [Trait] = []
-        var constraints: [Constraint] = []
+        var traitNames: Set<String> = Set()
         var types: [ObjectType] = []
+        var constraints: [Constraint] = []
         var edgeRules: [EdgeRule] = []
         
         self.name = name
@@ -160,17 +248,20 @@ public final class Metamodel: Sendable {
         
         for domain in metamodels {
             for trait in domain.traits {
-                if let index = traits.firstIndex(where: { $0.name == trait.name }) {
-                    traits[index] = trait
+                if let existing = traits.first(where: { $0.name == trait.name }) {
+                    precondition(existing === trait,
+                                 "Metamodel merge: shared traits with name \(trait.name) are different instances")
                 }
                 else {
                     traits.append(trait)
+                    traitNames.insert(trait.name)
                 }
             }
 
             for type in domain.types {
-                if let index = types.firstIndex(where: { $0.name == type.name }) {
-                    types[index] = type
+                if let existing = types.first(where: { $0.name == type.name }) {
+                    precondition(existing === type,
+                                 "Metamodel merge: shared type with name \(type.name) are different instances")
                 }
                 else {
                     types.append(type)
@@ -178,8 +269,9 @@ public final class Metamodel: Sendable {
             }
 
             for constraint in domain.constraints {
-                if let index = constraints.firstIndex(where: { $0.name == constraint.name }) {
-                    constraints[index] = constraint
+                if let existing = constraints.first(where: { $0.name == constraint.name }) {
+                    precondition(existing === constraint,
+                                 "Metamodel merge: shared constraint with name \(constraint.name) are different instances")
                 }
                 else {
                     constraints.append(constraint)
@@ -188,7 +280,15 @@ public final class Metamodel: Sendable {
             // TODO: Make merging of edge rules smarter - avoid duplicates
             edgeRules += domain.edgeRules
         }
-
+        
+        for type in types {
+            for trait in type.traits {
+                precondition(traitNames.contains(trait.name),
+                             "Missing metamodel trait \(trait.name) for type \(type.name)")
+            }
+        }
+        Self._validateTraitIdentity(knownTraits: traits, types: types)
+        
         self.traits = traits
         self.types = types
         self.constraints = constraints
@@ -244,7 +344,7 @@ public final class Metamodel: Sendable {
         return types.contains { $0.name == name}
     }
     public func hasType(_ type: ObjectType) -> Bool {
-        return types.contains { $0 === type}
+        return types.contains { $0.matches(type)}
     }
     public func trait(name: String) -> Trait? {
         return traits.first { $0.name == name}

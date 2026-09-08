@@ -239,7 +239,7 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     ///
     @inlinable
     public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in plane: some Plane) -> Bool {
-        guard type === self.type else {
+        guard type.matches(self.type) else {
             return false
         }
         if let predicate = originPredicate {

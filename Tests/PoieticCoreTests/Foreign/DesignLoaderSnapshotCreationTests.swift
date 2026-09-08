@@ -13,7 +13,7 @@ struct DesignLoaderSnapshotCreationTests {
     let loader: DesignLoader
 
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
     }
 
     // MARK: - Default Structural Type
@@ -23,7 +23,7 @@ struct DesignLoaderSnapshotCreationTests {
         let resolvedUnstr = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(100),
             objectID: ObjectID(10),
-            typeName: "TestPlain", // has .unstructured structural type
+            typeName: "TestUnstructured", // has .unstructured structural type
             structuralType: nil // not specified - should use default
         )
 
@@ -32,7 +32,7 @@ struct DesignLoaderSnapshotCreationTests {
         #expect(snapshotUnstr.topology == .unstructured)
         #expect(snapshotUnstr.snapshotID == ObjectSnapshotID(100))
         #expect(snapshotUnstr.objectID == ObjectID(10))
-        #expect(snapshotUnstr.type.name == "TestPlain")
+        #expect(snapshotUnstr.type.name == "TestUnstructured")
 
         let resolvedNode = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(200),
@@ -68,7 +68,7 @@ struct DesignLoaderSnapshotCreationTests {
         let resolvedUnstr = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(100),
             objectID: ObjectID(10),
-            typeName: "TestPlain",
+            typeName: "TestUnstructured",
             structuralType: .unstructured // explicitly specified
         )
 
@@ -107,7 +107,7 @@ struct DesignLoaderSnapshotCreationTests {
         let resolvedNode = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(100),
             objectID: ObjectID(10),
-            typeName: "TestPlain", // .unstructured type
+            typeName: "TestUnstructured", // .unstructured type
             structuralType: .node // trying to use as node
         )
 
@@ -202,7 +202,7 @@ struct DesignLoaderSnapshotCreationTests {
         let resolved = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(100),
             objectID: ObjectID(10),
-            typeName: "TestPlain",
+            typeName: "TestUnstructured",
             structuralType: .unstructured,
             attributes: ["name": Variant("test"), "value": Variant(42)]
         )

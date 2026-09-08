@@ -19,7 +19,7 @@ struct DesignLoaderValidationTest {
     let loader: DesignLoader
     
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
         self.strayIdentityManager = IdentityManager()
     }
     
@@ -141,7 +141,7 @@ struct DesignLoaderReservationTests {
     let loader: DesignLoader
     
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
         self.strayIdentityManager = IdentityManager()
     }
 
@@ -382,7 +382,7 @@ struct DesignLoaderSnapshotResolutionTests {
     let loader: DesignLoader
     
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
         self.strayIdentityManager = IdentityManager()
     }
     
@@ -455,7 +455,8 @@ struct DesignLoaderSnapshotResolutionTests {
     }
     @Test("Name from Object ID (compatibility)")
     func nameFromObjectID() async throws {
-        let loader = DesignLoader(metamodel: TestMetamodel, options: .useIDAsNameAttribute)
+        let loader = DesignLoader(metamodel: TestDomain.TestMetamodel,
+                                  options: .useIDAsNameAttribute)
 
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
@@ -529,19 +530,19 @@ struct DesignLoaderIntegrationTests {
     let loader: DesignLoader
 
     init() {
-        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
     }
 
     @Test("Load complete design with various object types and hierarchy")
     func loadCompleteDesign() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10)),
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11), topology: RawTopology("node")),
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(102), objectID: .int(12), topology: RawTopology("node")),
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(103), objectID: .int(13),
                             topology: RawTopology("edge", references: [.int(11), .int(12)])),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(104), objectID: .int(14), parent: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(104), objectID: .int(14), parent: .int(10)),
             ],
             planes: [
                 RawPlane(snapshots: [.int(100), .int(101), .int(102), .int(103), .int(104)])
@@ -594,12 +595,13 @@ struct DesignLoaderIntegrationTests {
     func loadOrphanedSnapshots() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10)),
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11), topology: RawTopology("node")),
             ],
             planes: [ /* MUST be empty for this test */ ]
         )
-        let loader = DesignLoader(metamodel: TestMetamodel, options: .collectOrphans)
+        let loader = DesignLoader(metamodel: TestDomain.TestMetamodel,
+                                  options: .collectOrphans)
         let design = try loader.load(raw)
         
         #expect(design.planes.count == 1)
@@ -620,7 +622,7 @@ struct DesignLoaderIntegrationTests {
     func identityManagerUsesLoadedIDs() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10)),
             ],
             planes: [
                 RawPlane(id: .int(1000), snapshots: [.int(100)])
@@ -714,7 +716,7 @@ struct DesignLoaderIntegrationTests {
     func loadSnapshotsWithoutFrames() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10)),
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11)),
             ]
         )
@@ -732,8 +734,8 @@ struct DesignLoaderIntegrationTests {
         // Snapshot 10 is parent of 20, and 20 is parent of 10 - circular!
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10), parent: .int(20)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10), parent: .int(20)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
             ],
             planes: [
                 RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)])
@@ -750,7 +752,7 @@ struct DesignLoaderIntegrationTests {
         // Snapshot 10 is its own parent
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10), parent: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10), parent: .int(10)),
             ],
             planes: [
                 RawPlane(id: .int(1000), snapshots: [.int(100)])
@@ -767,8 +769,8 @@ struct DesignLoaderIntegrationTests {
         // Plane contains two snapshots of the same object (ID 10)
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), objectID: .int(10)), // same object ID!
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(200), objectID: .int(10)), // same object ID!
             ],
             planes: [
                 RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)])

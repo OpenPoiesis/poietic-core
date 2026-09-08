@@ -44,21 +44,21 @@ final class JSONFileStoreTests: XCTestCase {
     var frame: TransientPlane!
     
     override func setUp() {
-        db = Design(metamodel: TestMetamodel)
+        db = Design(metamodel: TestDomain.TestMetamodel)
         frame = db.createPlane()
 
-        let flow = frame.create(TestMetamodel["FlowRate"]!,
+        let flow = frame.create(TestDomain.TestMetamodel["FlowRate"]!,
                                 topology: .node,
                                 attributes: [:])
-        let source = frame.create(TestMetamodel["Stock"]!,
+        let source = frame.create(TestDomain.TestMetamodel["Stock"]!,
                                   topology: .node,
                                   attributes: [:])
-        let sink = frame.create(TestMetamodel["Stock"]!,
+        let sink = frame.create(TestDomain.TestMetamodel["Stock"]!,
                                 topology: .node,
                                 attributes: [:])
         
-        frame.createEdge(TestMetamodel["Arrow"]!, origin: source.objectID, target: flow.objectID)
-        frame.createEdge(TestMetamodel["Arrow"]!, origin: flow.objectID, target: sink.objectID)
+        frame.createEdge(TestDomain.TestMetamodel["Arrow"]!, origin: source.objectID, target: flow.objectID)
+        frame.createEdge(TestDomain.TestMetamodel["Arrow"]!, origin: flow.objectID, target: sink.objectID)
         do {
             try db.accept(frame)
         }

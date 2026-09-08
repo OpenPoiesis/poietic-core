@@ -10,13 +10,6 @@ import Testing
 
 // MARK: - Test model
 
-let NameTestMetamodel = Metamodel(
-    traits: [Trait.Name],
-    types: [
-        NamedNodeType,
-        TestNodeType,
-    ]
-)
 
 // MARK: - NormalizedName component
 
@@ -97,7 +90,7 @@ let NameTestMetamodel = Metamodel(
     let frame: TransientPlane
 
     init() throws {
-        self.design = Design(metamodel: NameTestMetamodel)
+        self.design = Design(metamodel: TestDomain.NameTestMetamodel)
         self.frame = design.createPlane()
     }
 
@@ -109,7 +102,7 @@ let NameTestMetamodel = Metamodel(
     }
 
     @Test func attachesComponent() throws {
-        let object = frame.createNode(NamedNodeType, name: "population growth")
+        let object = frame.createNode(TestDomain.Types.NamedNode, name: "population growth")
 
         let world = try accept()
 
@@ -126,7 +119,7 @@ let NameTestMetamodel = Metamodel(
         // NOTE: The system currently passes the untrimmed name to
         // `NormalizedName(original:)`, so the `original` expectation fails until
         // the system trims before constructing the component.
-        let object = frame.createNode(NamedNodeType, name: "  object \n")
+        let object = frame.createNode(TestDomain.Types.NamedNode, name: "  object \n")
 
         let world = try accept()
 
@@ -137,9 +130,9 @@ let NameTestMetamodel = Metamodel(
     }
 
     @Test func emptyNamesGetEmptyNameIssue() throws {
-        let empty = frame.createNode(NamedNodeType, name: "")
-        let whitespace = frame.createNode(NamedNodeType, name: " \t\n\r")
-        let underscores = frame.createNode(NamedNodeType, name: "___")
+        let empty = frame.createNode(TestDomain.Types.NamedNode, name: "")
+        let whitespace = frame.createNode(TestDomain.Types.NamedNode, name: " \t\n\r")
+        let underscores = frame.createNode(TestDomain.Types.NamedNode, name: "___")
 
         let world = try accept()
 
@@ -152,7 +145,7 @@ let NameTestMetamodel = Metamodel(
     }
 
     @Test func ignoresObjectsWithoutNameTrait() throws {
-        let object = frame.createNode(TestNodeType)
+        let object = frame.createNode(TestDomain.Types.TestNode)
 
         let world = try accept()
 
