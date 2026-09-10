@@ -68,6 +68,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
     ///
     case round
     case exp
+    case ln
     case sqrt
     
     // Variadic numeric
@@ -181,6 +182,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         case .ceiling: "ceiling"
         case .round: "round"
         case .exp: "exp"
+        case .ln: "ln"
         case .sqrt: "sqrt"
             
         // Unary logical
@@ -206,6 +208,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         case .ceiling: "Rounding upwards to the nearest integer"
         case .round: "Rounding to the nearest integer"
         case .exp: "Natural exponent of x"
+        case .ln: "Natural logarithm of x"
         case .sqrt: "Square root of x"
             
         // Unary logical
@@ -235,6 +238,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         case "ceiling": self = .ceiling
         case "round":   self = .round
         case "exp":     self = .exp
+        case "ln":      self = .ln
         case "sqrt":    self = .sqrt
 
         // Unary logical
@@ -260,6 +264,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         case .ceiling: .unaryNumeric
         case .round: .unaryNumeric
         case .exp: .unaryNumeric
+        case .ln: .unaryNumeric
         case .sqrt: .unaryNumeric
 
         // Unary logical

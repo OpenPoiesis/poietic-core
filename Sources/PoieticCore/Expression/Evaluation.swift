@@ -271,6 +271,13 @@ public enum Evaluator {
 #else
             result = Variant(Darwin.exp(arg))
 #endif
+        case .ln:
+            let arg: Double = try castArguments(arguments)
+#if os(Linux)
+            result = Variant(Glibc.log(arg))
+#else
+            result = Variant(Darwin.log(arg))
+#endif
         case .sqrt:
             let arg: Double = try castArguments(arguments)
             result = Variant(arg.squareRoot())
