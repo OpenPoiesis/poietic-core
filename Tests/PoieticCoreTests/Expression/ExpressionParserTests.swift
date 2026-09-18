@@ -87,6 +87,12 @@ import Testing
         #expect(try ExpressionParser(string: "(a * b) + c").parse() == expr2)
     }
     
+    @Test func negativeNumber() throws {
+        let expr = UnboundExpression.unary(.negate, .value(1))
+        let parsed = try ExpressionParser(string: "-1").parse()
+        #expect(parsed == expr)
+    }
+
     @Test func unaryExpression() throws {
         let expr = UnboundExpression.unary(.negate, .variable("x"))
         #expect(try ExpressionParser(string: "-x").parse() == expr)
@@ -154,4 +160,18 @@ import Testing
                                   "Expected valid expression to be parsed")
         #expect(result.fullText == "-(a+b)*f(c,d,100_000)")
     }
+    
+    @Test func hugeIntegerLiteral() throws {
+        let parser = ExpressionParser(string: "99999999999999999999999999999999999")
+        #expect(throws: ExpressionSyntaxError.invalidNumberLiteral) {
+            try parser.parse()
+        }
+    }
+    @Test func malformedExponent() throws {
+        let parser = ExpressionParser(string: "1e_")
+        #expect(throws: ExpressionSyntaxError.invalidNumberLiteral) {
+            try parser.parse()
+        }
+    }
+
 }

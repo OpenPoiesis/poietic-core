@@ -246,8 +246,12 @@ import Testing
         #expect(token.text == "1")
         
         token = lexer.next()
+        #expect(token.type == .operator)
+        #expect(token.text == "-")
+        
+        token = lexer.next()
         #expect(token.type == .int)
-        #expect(token.text == "-2")
+        #expect(token.text == "2")
 
         token = lexer.next()
         #expect(token.type == .operator)
@@ -272,6 +276,37 @@ import Testing
         let token = lexer.next()
         #expect(token.type == .identifier)
         #expect(token.text == "thing")
+    }
+    
+    // MARK: CJK and non-latin
+    @Test func identifierCJK() throws {
+        var lexer = ExpressionLexer(string: "中文变量")
+        let token = lexer.next()
+        #expect(token.type == .identifier)
+        #expect(token.text == "中文变量")
+    }
+    @Test func identifierCJKDigitTail() throws {
+        var lexer = ExpressionLexer(string: "变量1")
+        let token = lexer.next()
+        #expect(token.type == .identifier)
+        #expect(token.text == "变量1")
+    }
+    @Test func quotedIdentifierCJK() throws {
+        var lexer = ExpressionLexer(string: "{人口 预测} {人口（预测）}")
+        let token = lexer.next()
+        #expect(token.type == .quotedIdentifier)
+        #expect(token.text == "人口 预测")
+
+        let token2 = lexer.next()
+        #expect(token2.type == .quotedIdentifier)
+        #expect(token2.text == "人口（预测）")
+
+    }
+    @Test func fullWidthDigitsAreNotNumbers() {
+        var lexer = ExpressionLexer(string: "１２３")
+        let token = lexer.next()
+        #expect(token.type == .error(.unexpectedCharacter))
+
     }
 }
 

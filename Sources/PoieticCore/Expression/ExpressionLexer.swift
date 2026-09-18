@@ -5,6 +5,10 @@
 //  Created by Stefan Urbanek on 30/06/2022.
 //
 
+private extension Character {
+    var isASCIIDigit: Bool { isASCII && isWholeNumber }
+}
+
 /// Human-oriented location within a text.
 ///
 /// `TextLocation` refers to a line number and a column within that line.
@@ -179,16 +183,8 @@ public struct ExpressionLexer {
                 case "(": type = .leftParen
                 case ")": type = .rightParen
                 case ",": type = .comma
-                case "-":
-                    if let nextChar = peek(), nextChar.isWholeNumber {
-                        advance()
-                        state = .int
-                    }
-                    else {
-                        type = .operator
-                    }
                 case "_": state = .identifier
-                case "+", "*", "/", "%", "^": type = .operator
+                case "+", "-", "*", "/", "%", "^": type = .operator
                 case "<", ">", "!":
                     if peek() == "=" {
                         advance()
@@ -206,7 +202,7 @@ public struct ExpressionLexer {
                     state = .quotedIdentifier
                     tokenStart = currentIndex
                 default:
-                    if char.isWholeNumber {
+                    if char.isASCIIDigit {
                         state = .int
                     }
                     else if char.isLetter {
@@ -220,13 +216,13 @@ public struct ExpressionLexer {
                 switch char {
                 case "_":
                     advance()
-                case _ where char.isWholeNumber:
+                case _ where char.isASCIIDigit:
                     advance()
                 case ".":
                     advance()
                     if let nextChar = peek() {
                         advance()
-                        if nextChar.isWholeNumber {
+                        if nextChar.isASCIIDigit {
                             state = .decimal
                         }
                         else {
@@ -252,7 +248,7 @@ public struct ExpressionLexer {
                 switch char {
                 case "_":
                     advance()
-                case _ where char.isWholeNumber:
+                case _ where char.isASCIIDigit:
                     advance()
                 case "e", "E":
                     advance()
@@ -270,7 +266,7 @@ public struct ExpressionLexer {
                 switch char {
                 case "_":
                     advance()
-                case _ where char.isWholeNumber:
+                case _ where char.isASCIIDigit:
                     advance()
                 case _ where char.isLetter:
                     advance()
@@ -279,7 +275,7 @@ public struct ExpressionLexer {
                     type = .float
                 }
             case .identifier:
-                if char.isLetter || char.isWholeNumber || char == "_" {
+                if char.isLetter || char.isASCIIDigit || char == "_" {
                     advance()
                 }
                 else {

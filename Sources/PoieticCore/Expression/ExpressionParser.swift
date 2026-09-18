@@ -17,6 +17,7 @@ public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
     case expressionExpected
     case unexpectedToken
     case unexpectedEnd
+    case invalidNumberLiteral
 
     public var description: String {
         switch self {
@@ -29,6 +30,7 @@ public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
         case .expressionExpected: "Expected expression"
         case .unexpectedToken: "Unexpected token"
         case .unexpectedEnd: "Unexpected end"
+        case .invalidNumberLiteral: "Invalid number literal"
         }
     }
 }
@@ -47,6 +49,7 @@ extension ExpressionSyntaxError: IssueConvertible {
         case .expressionExpected: "expression.expression_expected"
         case .unexpectedToken: "expression.unexpected_token"
         case .unexpectedEnd: "expression.unexpected_end"
+        case .invalidNumberLiteral: "expression.invalid_number_literal"
         }
     }
     public var message: String { "Formula error: " + self.description }
@@ -71,15 +74,14 @@ public indirect enum ExpressionAST {
     ///
     /// - SeeAlso: ``UnboundExpression``
     ///
-    public func toExpression() -> UnboundExpression {
+    public func toExpression() throws (ExpressionSyntaxError) -> UnboundExpression {
         switch self {
         case let .intLiteral(token):
             var sanitizedNumber = token.text
             sanitizedNumber.removeAll { $0 == "_" }
 
-            // TODO: [IMPORTANT] Check whether the number is convertible, do not crash.
             guard let value = Int(sanitizedNumber)
-            else { fatalError("Lexer error: invalid int token") }
+            else { throw .invalidNumberLiteral }
             
             return .value(Variant(value))
             
@@ -87,9 +89,8 @@ public indirect enum ExpressionAST {
             var sanitizedNumber = token.text
             sanitizedNumber.removeAll { $0 == "_" }
 
-            // TODO: [IMPORTANT] Check whether the number is convertible, do not crash.
             guard let value = Double(sanitizedNumber)
-            else { fatalError("Lexer error: invalid double token") }
+                    else { throw .invalidNumberLiteral }
 
             return .value(Variant(value))
             
@@ -100,23 +101,27 @@ public indirect enum ExpressionAST {
             guard let op = UnaryOperator(symbol: opSymbol.text)
             else { fatalError("Unknown unary operator symbol '\(opSymbol.text)'") }
             
-            return .unary(op, operand.toExpression())
+            return .unary(op, try operand.toExpression())
 
         case let .binaryOperator(operator: opSymbol, left: left, right: right):
             guard let op = BinaryOperator(symbol: opSymbol.text)
             else { fatalError("Unknown binary operator symbol '\(opSymbol.text)'") }
 
-            return .binary(op, left.toExpression(), right.toExpression())
+            return .binary(op, try left.toExpression(), try right.toExpression())
 
         case let .functionCall(name: name, arguments: args, _, _):
-            let expressions = args.map { $0.toExpression() }
-            return .function(String(name.text), expressions)
+            var items: [UnboundExpression] = []
+            for arg in args {
+                let expr = try arg.toExpression()
+                items.append(expr)
+            }
+            return .function(String(name.text), items)
 
         case let .parenthesis(expression: expr, _, _):
-            return expr.toExpression()
+            return try expr.toExpression()
 
         case .functionArgument(argument: let argument, _):
-            return argument.toExpression()
+            return try argument.toExpression()
         }
     }
     
@@ -429,6 +434,6 @@ public class ExpressionParser {
         if currentToken?.type != .empty {
             throw .unexpectedToken
         }
-        return expr.toExpression()
+        return try expr.toExpression()
     }
 }

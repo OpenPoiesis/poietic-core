@@ -60,6 +60,14 @@ Built-in logical functions:
 | `and(a,b,...)` | Returns logical _AND_ of all the arguments – true if all arguments are true |
 
 
+### Variables
+
+Variables can contain any Unicode letter characters mixed with numbers and `_` underscore. They must
+start with a letter or an underscore. For example: `resources`, `a1`, `人口`,
+`出生率`. Variables with spaces and other non-letter characters must be surrounded by curly brackets.
+For example: `{Growth Rate}`, `{人口（预测）}`
+
+
 ## Topics
 
 ### Arithmetic Expression
