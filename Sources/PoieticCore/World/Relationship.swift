@@ -140,15 +140,14 @@ public struct Controls: Relationship {
     public init() { /* Empty */ }
 }
 
-/// Relationship indicating that an entity – a handle controls a property of a target
-/// – handled entity.
+/// Relationship indicating that a visual grip controls a property of a target entity.
 ///
-/// For example a visual canvas handle controls a position of another object or a midpoint of a
+/// For example a visual canvas grip controls a position of another object or a midpoint of a
 /// connector.
 ///
-/// When the target is removed, the handler entity is removed, keeping the component owning entity.
+/// When the target is removed, the grip entity is removed, keeping the component owning entity.
 ///
-public struct Handles: Relationship {
+public struct GripOf: Relationship {
     // TODO: Maybe pick a better name for the relationship component. Maybe "Manipulates"?
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }
