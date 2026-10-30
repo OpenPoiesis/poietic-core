@@ -169,7 +169,6 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
     let snapshotID: RawEntityID?
     let objectID: RawEntityID?
     let topology: RawTopologyV0_2
-    let parent: RawEntityID?
     let attributes: [String:Variant]
     
     enum CodingKeys: String, CodingKey {
@@ -178,7 +177,6 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
         case references // Topology references
         case objectID = "object_id"
         case snapshotID = "snapshot_id"
-        case parent
         case attributes
     }
 
@@ -186,15 +184,13 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
         let typeName = self.typeName ?? "(no type)"
         let snapshotID = self.snapshotID ?? .string("(no snapshot ID)")
         let objectID = self.snapshotID ?? .string("(no object ID)")
-        let parent = self.snapshotID ?? .string("(no parent ID)")
-        return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), topology: \(topology), parent: \(parent), attributes: \(attributes)"
+        return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), topology: \(topology), attributes: \(attributes)"
     }
     
     init(fromRaw snapshot: RawSnapshot) {
         self.typeName = snapshot.typeName
         self.snapshotID = snapshot.snapshotID
         self.objectID = snapshot.objectID
-        self.parent = snapshot.parent
         self.attributes = snapshot.attributes
         self.topology = RawTopologyV0_2(fromRaw: snapshot.topology)
     }
@@ -205,7 +201,6 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
         self.objectID = try container.decodeIfPresent(RawEntityID.self, forKey: .objectID)
         self.snapshotID = try container.decodeIfPresent(RawEntityID.self, forKey: .snapshotID)
-        self.parent = try container.decodeIfPresent(RawEntityID.self, forKey: .parent)
         let topologyType = try container.decodeIfPresent(String.self, forKey: .topology)
         let topologyRefs = try container.decodeIfPresent([RawEntityID].self, forKey: .references)
         self.topology = RawTopologyV0_2(topologyType, references: topologyRefs ?? [])
@@ -219,7 +214,6 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
         try container.encodeIfPresent(typeName, forKey: .typeName)
         try container.encodeIfPresent(objectID, forKey: .objectID)
         try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
-        try container.encodeIfPresent(parent, forKey: .parent)
         try container.encodeIfPresent(attributes, forKey: .attributes)
         try container.encodeIfPresent(topology.type, forKey: .topology)
         if !topology.references.isEmpty {
@@ -233,7 +227,6 @@ class RawSnapshotV0_2: Codable, CustomDebugStringConvertible {
             snapshotID: snapshotID,
             objectID: objectID,
             topology: topology.asRaw(),
-            parent: parent,
             attributes: attributes
         )
     }

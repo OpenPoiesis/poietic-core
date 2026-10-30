@@ -168,13 +168,6 @@ public enum BasicDomain {
                 Traits.BibliographicalReference,
                 Traits.Orderable,
             ])
-        
-        public static let Group = ObjectType(
-            name: "Group",
-            topologyType: .unstructured,
-            traits: [
-                Traits.Name,
-            ])
     }
 
     /// Metamodel with some basic object types that are typical for multiple
@@ -195,7 +188,6 @@ public enum BasicDomain {
         types: [
             DiagramDomain.Types.DiagramSettings,
             Types.DesignInfo,
-            Types.Group,
         ],
         constraints: []
     )

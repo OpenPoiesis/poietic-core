@@ -484,7 +484,6 @@ struct DesignLoaderSnapshotResolutionTests {
                 RawSnapshot(typeName: "Test",
                             snapshotID: .int(100), objectID: .int(10),
                             topology: RawTopology("node"),
-                            parent: .int(20),
                             attributes: ["name": Variant("rabbit")]),
                 RawSnapshot(typeName: "Test",
                             snapshotID: .int(200), objectID: .int(20),
@@ -506,7 +505,6 @@ struct DesignLoaderSnapshotResolutionTests {
         #expect(snapshots[0].objectID == ObjectID(10))
         #expect(snapshots[0].structureType == .node)
         #expect(snapshots[0].structureReferences == [])
-        #expect(snapshots[0].parent == ObjectID(20))
         #expect(snapshots[0].attributes == ["name": Variant("rabbit")])
         
         #expect(snapshots[1].snapshotID == ObjectSnapshotID(200))
@@ -519,10 +517,6 @@ struct DesignLoaderSnapshotResolutionTests {
         #expect(snapshots[2].structureType == .unstructured)
         #expect(snapshots[2].structureReferences == [])
     }
-
-
-    // TODO: [TEST] .unknownID for snapshot parent
-
 }
 
 @Suite("Design Loader: integration tests")
@@ -533,7 +527,7 @@ struct DesignLoaderIntegrationTests {
         self.loader = DesignLoader(metamodel: TestDomain.TestMetamodel)
     }
 
-    @Test("Load complete design with various object types and hierarchy")
+    @Test("Load complete design with various object types")
     func loadCompleteDesign() async throws {
         let raw = RawDesign(
             snapshots: [
@@ -542,7 +536,7 @@ struct DesignLoaderIntegrationTests {
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(102), objectID: .int(12), topology: RawTopology("node")),
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(103), objectID: .int(13),
                             topology: RawTopology("edge", references: [.int(11), .int(12)])),
-                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(104), objectID: .int(14), parent: .int(10)),
+                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(104), objectID: .int(14)),
             ],
             planes: [
                 RawPlane(snapshots: [.int(100), .int(101), .int(102), .int(103), .int(104)])
@@ -550,45 +544,34 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        // Verify unstructured parent with child
         let o0 = try #require(design.snapshot(ObjectSnapshotID(100)))
         #expect(o0.objectID == ObjectID(10))
         #expect(o0.snapshotID == ObjectSnapshotID(100))
         #expect(o0.topology == .unstructured)
-        #expect(o0.parent == nil)
-        #expect(Array(o0.children) == [ObjectID(14)])
 
         // Verify first node
         let o1 = try #require(design.snapshot(ObjectSnapshotID(101)))
         #expect(o1.objectID == ObjectID(11))
         #expect(o1.snapshotID == ObjectSnapshotID(101))
         #expect(o1.topology == .node)
-        #expect(o1.parent == nil)
-        #expect(o1.children.isEmpty == true)
 
         // Verify second node
         let o2 = try #require(design.snapshot(ObjectSnapshotID(102)))
         #expect(o2.objectID == ObjectID(12))
         #expect(o2.snapshotID == ObjectSnapshotID(102))
         #expect(o2.topology == .node)
-        #expect(o2.parent == nil)
-        #expect(o2.children.isEmpty == true)
 
         // Verify edge connecting the two nodes
         let o3 = try #require(design.snapshot(ObjectSnapshotID(103)))
         #expect(o3.objectID == ObjectID(13))
         #expect(o3.snapshotID == ObjectSnapshotID(103))
         #expect(o3.topology == .edge(ObjectID(11), ObjectID(12)))
-        #expect(o3.parent == nil)
-        #expect(o3.children.isEmpty == true)
 
         // Verify child of first object
         let o4 = try #require(design.snapshot(ObjectSnapshotID(104)))
         #expect(o4.objectID == ObjectID(14))
         #expect(o4.snapshotID == ObjectSnapshotID(104))
         #expect(o4.topology == .unstructured)
-        #expect(o4.parent == ObjectID(10))
-        #expect(o4.children.isEmpty == true)
     }
 
     @Test("Load without planes - orphaned snapshots")
@@ -727,41 +710,6 @@ struct DesignLoaderIntegrationTests {
         #expect(design.planes.isEmpty)
         #expect(design.snapshot(ObjectSnapshotID(100)) == nil)
         #expect(design.snapshot(ObjectSnapshotID(101)) == nil)
-    }
-
-    @Test("Error: circular parent-child relationship")
-    func errorCircularParentChild() async throws {
-        // Snapshot 10 is parent of 20, and 20 is parent of 10 - circular!
-        let raw = RawDesign(
-            snapshots: [
-                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10), parent: .int(20)),
-                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
-            ],
-            planes: [
-                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)])
-            ]
-        )
-
-        #expect(throws: DesignLoaderError.item(.planes, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
-            _ = try loader.load(raw)
-        }
-    }
-
-    @Test("Error: self-referencing parent")
-    func errorSelfReferencingParent() async throws {
-        // Snapshot 10 is its own parent
-        let raw = RawDesign(
-            snapshots: [
-                RawSnapshot(typeName: "TestUnstructured", snapshotID: .int(100), objectID: .int(10), parent: .int(10)),
-            ],
-            planes: [
-                RawPlane(id: .int(1000), snapshots: [.int(100)])
-            ]
-        )
-
-        #expect(throws: DesignLoaderError.item(.planes, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
-            _ = try loader.load(raw)
-        }
     }
 
     @Test("Error: duplicate object in plane")

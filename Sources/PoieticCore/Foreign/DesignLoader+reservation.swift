@@ -86,7 +86,7 @@ extension DesignLoader { // Reservation of identities
         assert(snapshotIDs.count == rawSnapshotIDs.count)
         assert(objectIDs.count == rawObjectIDs.count)
 
-        // Create snapshot index – used for resolving planes and hierarchy
+        // Create snapshot index – used for resolving planes
         var snapshotIndex: [ObjectSnapshotID:Int] = [:]
         for (index, id) in snapshotIDs.enumerated() {
             assert(snapshotIndex[id] == nil, "Duplicate snapshot ID \(id)")

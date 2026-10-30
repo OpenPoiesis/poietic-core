@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
-import Collections
-
 @usableFromInline
 class _TransientSnapshotBox:  RCTableElement {
     var isOriginal: Bool
@@ -62,20 +60,6 @@ class _TransientSnapshotBox:  RCTableElement {
         }
     }
     
-    var parent: ObjectID? {
-        switch content {
-        case let .stable(snapshot): snapshot.parent
-        case let .transient(object): object.parent
-        }
-    }
-    
-    var children: OrderedSet<ObjectID> {
-        switch content {
-        case let .stable(snapshot): snapshot.children
-        case let .transient(object): object.children
-        }
-    }
-    
     var topology: Topology {
         switch content {
         case let .stable(snapshot): snapshot.topology
@@ -96,7 +80,7 @@ class _TransientSnapshotBox:  RCTableElement {
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
 /// a transaction for a change. New objects are created within a ``TransientPlane`` using
-/// ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``.
+/// ``TransientPlane/create(_:objectID:snapshotID:topology:attributes:)``.
 /// Mutable versions of existing stable objects are created with``TransientPlane/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
@@ -110,9 +94,6 @@ public class TransientObject: ObjectProtocol {
     @usableFromInline
     package var _body: ObjectBody
     
-    /// Flag to denote whether the object's parent-child hierarchy has been modified,
-    public private(set) var hierarchyChanged: Bool
-
     /// Set of changed attributes.
     ///
     /// Any attempt to set an attribute is considered a change, despite the new value might be the
@@ -120,32 +101,26 @@ public class TransientObject: ObjectProtocol {
     ///
     public private(set) var changedAttributes: Set<String>
 
-    var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged }
+    var hasChanges: Bool { !changedAttributes.isEmpty }
     
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
                 topology: Topology = .unstructured,
-                parent: ObjectID? = nil,
-                children: [ObjectID] = [],
-                attributes: [String:Variant] = [:]) {
-        
+                attributes: [String:Variant] = [:])
+    {
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
                                 type: type,
                                 topology: topology,
-                                parent: parent,
-                                children: children,
                                 attributes: attributes)
         self.changedAttributes = Set()
-        self.hierarchyChanged = false
     }
 
     init(original: ObjectSnapshot, snapshotID: ObjectSnapshotID) {
         self.snapshotID = snapshotID
         self._body = original._body
         self.changedAttributes = Set()
-        self.hierarchyChanged = false
     }
    
     @inlinable public var objectID: ObjectID { _body.id }
@@ -156,15 +131,6 @@ public class TransientObject: ObjectProtocol {
         
     }
     
-    public var parent: ObjectID? {
-        get { _body.parent }
-        set(parent) {
-            hierarchyChanged = true
-            _body.parent = parent
-        }
-    }
-    
-    @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Get a value for an attribute.
@@ -227,14 +193,5 @@ public class TransientObject: ObjectProtocol {
     
     public func removeAttribute(forKey key: String) {
         _body.attributes[key] = nil
-    }
-
-    public func removeChild(_ child: ObjectID) {
-        hierarchyChanged = true
-        _body.children.remove(child)
-    }
-    public func addChild(_ child: ObjectID) {
-        hierarchyChanged = true
-        _body.children.append(child)
     }
 }

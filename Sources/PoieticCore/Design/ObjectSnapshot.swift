@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 11/11/2024.
 //
 
-import Collections
-
 public final class LogicalObject: CustomStringConvertible, RCTableElement {
     public let objectID: ObjectID
     public var storageKey: ObjectID { objectID }
@@ -35,7 +33,7 @@ public final class LogicalObject: CustomStringConvertible, RCTableElement {
 /// needs to be assured. It can be either provided by the design, taken
 /// from an external source or created in a custom way.
 ///
-/// To create a new object, use the ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)
+/// To create a new object, use the ``TransientPlane/create(_:objectID:snapshotID:topology:attributes:)
 /// method:
 ///
 /// ```swift
@@ -75,8 +73,6 @@ public final class ObjectSnapshot: CustomStringConvertible, ObjectProtocol, RCTa
     @inlinable public var objectID: ObjectID { _body.id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var topology: Topology { _body.topology }
-    @inlinable public var parent: ObjectID? { _body.parent }
-    @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Create a stable object.
@@ -86,28 +82,22 @@ public final class ObjectSnapshot: CustomStringConvertible, ObjectProtocol, RCTa
     ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
     ///     - topology: Topological property of the object which might refer to other objects.
-    ///     - children: Children of the object.
     ///     - attributes: Initial attributes of the newly created object.
-    ///     - parent: ID of parent object in the object hierarchy.
     ///
     /// - SeeAlso: ``TransientObject``
     /// - Precondition: Attributes must not contain any reserved attribute
-    ///   (_name_, _id_, _type_, _snapshot_id_, _topology_, _parent_, _children_)
+    ///   (_name_, _id_, _type_, _snapshot_id_, _topology_, )
     ///
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
                 topology: Topology = .unstructured,
-                parent: ObjectID? = nil,
-                children: [ObjectID] = [],
                 attributes: [String:Variant] = [:]) {
 
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
                                  type: type,
                                  topology: topology,
-                                 parent: parent,
-                                 children: children,
                                  attributes: attributes)
     }
     

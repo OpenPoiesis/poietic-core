@@ -126,7 +126,7 @@ struct DesignLoaderLoadIntoTests {
     }
 
     @Test("Error: duplicate object ID")
-    func loadIntoDuplicsteObjectID() async throws {
+    func loadIntoDuplicateObjectID() async throws {
         let trans = design.createPlane()
         let rawSnapshots: [RawSnapshot] = [
             RawSnapshot(typeName: "TestNode", objectID: .string("consumption_inner")),
@@ -195,7 +195,7 @@ struct DesignLoaderLoadIntoTests {
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11), attributes: ["name": "node"]),
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(102), objectID: .int(12),
                             topology: RawTopology(origin: .int(11), target: .int(11)), attributes: ["name": "edge"]),
-                RawSnapshot(typeName: "TestNode", snapshotID: .int(103), objectID: .int(13), parent: .int(11), attributes: ["name": "child"]),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(103), objectID: .int(13), attributes: ["name": "child"]),
             ]
         )
         let trans = design.createPlane()
@@ -205,10 +205,7 @@ struct DesignLoaderLoadIntoTests {
 
         let node1 = try #require(frame.first(where: { $0["name"] == "node"}))
         let edge1 = try #require(frame.first(where: { $0["name"] == "edge"}))
-        let child1 = try #require(frame.first(where: { $0["name"] == "child"}))
         #expect(edge1.topology == .edge(node1.objectID, node1.objectID))
-        #expect(child1.parent == node1.objectID)
-        #expect(Array(node1.children) == [child1.objectID])
 
         // Load same raw snapshots again into a derived plane
         // The IDs already exist in the target plane, so .preserveOrCreate should create new IDs
@@ -218,11 +215,8 @@ struct DesignLoaderLoadIntoTests {
         let frame2 = try design.accept(trans2)
         let node2 = try #require(frame2.first(where: { $0["name"] == "node" && $0.objectID != node1.objectID }))
         let edge2 = try #require(frame2.first(where: { $0["name"] == "edge" && $0.objectID != edge1.objectID }))
-        let child2 = try #require(frame2.first(where: { $0["name"] == "child" && $0.objectID != child1.objectID }))
 
         #expect(edge2.topology == .edge(node2.objectID, node2.objectID))
-        #expect(child2.parent == node2.objectID)
-        #expect(Array(node2.children) == [child2.objectID])
     }
 
     @Test("Simulated copy-paste workflow")

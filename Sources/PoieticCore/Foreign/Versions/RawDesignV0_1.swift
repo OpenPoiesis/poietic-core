@@ -178,7 +178,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
     let snapshotID: RawEntityID?
     let objectID: RawEntityID?
     let structure: RawStructureV0_1
-    let parent: RawEntityID?
     let attributes: [String:Variant]
     
     enum CodingKeys: String, CodingKey {
@@ -187,7 +186,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         case objectID = "object_id"
         case _objectID_v0_1_0 = "id"
         case snapshotID = "snapshot_id"
-        case parent
         case attributes
         // Structure keys
         case references
@@ -202,7 +200,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         self.objectID = snapshot.objectID
         self.structure = RawStructureV0_1(snapshot.topology.type,
                                           references: snapshot.topology.references)
-        self.parent = snapshot.parent
         self.attributes = snapshot.attributes
     }
     
@@ -210,8 +207,7 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         let typeName = self.typeName ?? "(no type)"
         let snapshotID = self.snapshotID ?? .string("(no snapshot ID)")
         let objectID = self.snapshotID ?? .string("(no object ID)")
-        let parent = self.snapshotID ?? .string("(no parent ID)")
-        return "RawSnapshotV0_1(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), structure: \(structure), parent: \(parent), attributes: \(attributes)"
+        return "RawSnapshotV0_1(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), structure: \(structure), attributes: \(attributes)"
     }
     
     required init(from decoder: any Decoder) throws {
@@ -221,7 +217,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         self.objectID = try container.decodeIfPresent(RawEntityID.self, forKey: .objectID)
                         ?? container.decodeIfPresent(RawEntityID.self, forKey: ._objectID_v0_1_0)
         self.snapshotID = try container.decodeIfPresent(RawEntityID.self, forKey: .snapshotID)
-        self.parent = try container.decodeIfPresent(RawEntityID.self, forKey: .parent)
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
         
         switch structureType {
@@ -259,7 +254,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         try container.encodeIfPresent(typeName, forKey: .typeName)
         try container.encodeIfPresent(objectID, forKey: .objectID)
         try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
-        try container.encodeIfPresent(parent, forKey: .parent)
         try container.encodeIfPresent(attributes, forKey: .attributes)
         try container.encodeIfPresent(structure.type, forKey: .structure)
         switch structure.type {
@@ -280,7 +274,6 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
             snapshotID: snapshotID,
             objectID: objectID,
             topology: structure.asRaw(),
-            parent: parent,
             attributes: attributes
         )
     }

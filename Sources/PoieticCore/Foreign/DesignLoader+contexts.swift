@@ -100,11 +100,8 @@ extension DesignLoader {
         }
     }
 
-    /// Data of an object snapshot where the references, topology type, topology references,
-    /// parent are resolved. Attributes are prepared.
-    ///
-    /// Only thing that is missing is list of children, that require context of a plane to be
-    /// resolved, because use object IDs.
+    /// Data of an object snapshot where the references, topology type, topology references
+    /// are resolved. Attributes are prepared.
     ///
     /// - Note: If the loader has option ``DesignLoader/Options/useIDAsNameAttribute``, and if the
     ///   corresponding raw object snapshot snapshot ID is defined as string, then the string ID
@@ -130,8 +127,6 @@ extension DesignLoader {
         let structureType: TopologyType?
         let structureReferences: [ObjectID]
         
-        let parent: ObjectID?
-        
         let attributes: [String:Variant]?
         
         internal init(snapshotID: ObjectSnapshotID,
@@ -139,14 +134,12 @@ extension DesignLoader {
                       typeName: String,
                       structuralType: TopologyType?,
                       structureReferences: [ObjectID] = [],
-                      parent: ObjectID? = nil,
                       attributes: [String:Variant]? = nil) {
             self.snapshotID = snapshotID
             self.objectID = objectID
             self.typeName = typeName
             self.structureType = structuralType
             self.structureReferences = structureReferences
-            self.parent = parent
             self.attributes = attributes
         }
     }
@@ -163,26 +156,10 @@ extension DesignLoader {
     }
     
     /// All snapshots in the loading batch (from raw design or list of raw snapshots) that have
-    /// all references resolved except children.
+    /// all references resolved.
     ///
-    /// - SeeAlso: ``SnapshotHierarchyResolution`` as a next step.
-    ///
-    struct PartialSnapshotResolution {
-        /// Mapping between snapshot index and children list.
+    struct SnapshotResolution {
         let objectSnapshots: [ResolvedObjectSnapshot]
-        let identities: IdentityResolution
-        
-        subscript(id: ObjectSnapshotID) -> ResolvedObjectSnapshot? {
-            guard let index = identities.snapshotIndex[id] else { return nil }
-            return objectSnapshots[index]
-        }
-    }
-
-    /// Mutable context using during hierarchy resolution of multiple planes.
-    struct SnapshotHierarchyResolution {
-        /// Mapping between snapshot index and children list.
-        let objectSnapshots: [ResolvedObjectSnapshot]
-        let children: [ObjectSnapshotID:[ObjectID]]
         let identities: IdentityResolution
         
         subscript(id: ObjectSnapshotID) -> ResolvedObjectSnapshot? {

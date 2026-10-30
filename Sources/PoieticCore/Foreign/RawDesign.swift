@@ -264,9 +264,6 @@ public class RawSnapshot: CustomDebugStringConvertible {
     public var topology: RawTopology
     // Must be ObjectID convertible
 
-    /// Parent object ID.
-    public var parent: RawEntityID?
-
     /// Dictionary of object attributes.
     ///
     /// See also note about `name` in the ``objectID`` property description.
@@ -279,14 +276,12 @@ public class RawSnapshot: CustomDebugStringConvertible {
                 snapshotID: RawEntityID? = nil,
                 objectID: RawEntityID? = nil,
                 topology: RawTopology = RawTopology(nil, references: []),
-                parent: RawEntityID? = nil,
                 attributes: [String:Variant] = [:])
     {
         self.typeName = typeName
         self.snapshotID = snapshotID
         self.objectID = objectID
         self.topology = topology
-        self.parent = parent
         self.attributes = attributes
     }
 
@@ -304,7 +299,6 @@ public class RawSnapshot: CustomDebugStringConvertible {
         self.typeName = snapshot.type.name
         self.snapshotID = .id(snapshot.snapshotID)
         self.objectID = .id(snapshot.objectID)
-        self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
         switch snapshot.topology {
         case .unstructured:

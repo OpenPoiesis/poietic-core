@@ -18,7 +18,7 @@ tells us "which object is this?"; the snapshot ID  (``ObjectSnapshot/snapshotID`
 "which version of it is this?".
 
 An object can be a node, an edge, unstructured (stand-alone) or an ordered set
-– that is its ``Topology``. Separately objects might have a parent-child hierarchy.
+– that is its ``Topology``.
 
 Object is the main component of a model. Simulation is created from objects and their attributes.
 Some of the objects might have a visual representation, for example a block with a pictogram for a
@@ -26,7 +26,7 @@ node or a connector arrow for an edge in a diagram.
 
 See:
 
-- Object creation: ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
+- Object creation: ``TransientPlane/create(_:objectID:snapshotID:topology:attributes:)``
 - Change object: ``TransientPlane/mutate(_:)`` then ``TransientObject``
 - Remove object: ``TransientPlane/removeCascading(_:)``
 

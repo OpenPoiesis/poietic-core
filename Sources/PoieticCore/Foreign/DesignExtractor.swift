@@ -94,13 +94,11 @@ public class DesignExtractor {
     /// - SeeAlso: ``extract(_:)``
     ///
     public func extract(_ snapshot: ObjectSnapshot) -> RawSnapshot {
-        let rawParent: RawEntityID? = snapshot.parent.map { .id($0) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
             snapshotID: .id(snapshot.snapshotID),
             objectID: .id(snapshot.objectID),
             topology: RawTopology(snapshot.topology),
-            parent: rawParent,
             attributes: snapshot.attributes
         )
         return raw
@@ -127,13 +125,11 @@ public class DesignExtractor {
     ///   are not included in the result.
     /// - Only ordered set (topology type) with the owner in the provided set of snapshots are kept.
     /// - Invalid references in the ordered set topology type are removed, but the ordered set is kept.
-    /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the plane are ignored.
     ///
     public func extractPruning(objects objectIDs: [ObjectID], plane: some Plane) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(objectIDs)
         var result: [RawSnapshot] = []
-        
         
         for id in objectIDs {
             guard let snapshot = plane[id] else { continue }
@@ -156,9 +152,6 @@ public class DesignExtractor {
                 raw.topology.references = [.id(owner)] + knownItems.map { .id($0) }
             }
             
-            if let parent = snapshot.parent, !knownIDs.contains(parent) {
-                raw.parent = nil
-            }
             result.append(raw)
         }
 

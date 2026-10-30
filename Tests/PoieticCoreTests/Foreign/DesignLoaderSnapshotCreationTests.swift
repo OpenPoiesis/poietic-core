@@ -27,7 +27,7 @@ struct DesignLoaderSnapshotCreationTests {
             structuralType: nil // not specified - should use default
         )
 
-        let snapshotUnstr = try loader.createSnapshot(resolvedUnstr, children: nil)
+        let snapshotUnstr = try loader.createSnapshot(resolvedUnstr)
 
         #expect(snapshotUnstr.topology == .unstructured)
         #expect(snapshotUnstr.snapshotID == ObjectSnapshotID(100))
@@ -41,7 +41,7 @@ struct DesignLoaderSnapshotCreationTests {
             structuralType: nil // not specified - should use default
         )
 
-        let snapshotNode = try loader.createSnapshot(resolvedNode, children: nil)
+        let snapshotNode = try loader.createSnapshot(resolvedNode)
 
         #expect(snapshotNode.topology == .node)
     }
@@ -57,7 +57,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.structuralTypeMismatch(.edge)) {
-            _ = try loader.createSnapshot(resolved, children: nil)
+            _ = try loader.createSnapshot(resolved)
         }
     }
 
@@ -72,7 +72,7 @@ struct DesignLoaderSnapshotCreationTests {
             structuralType: .unstructured // explicitly specified
         )
 
-        let snapshotUnstr = try loader.createSnapshot(resolvedUnstr, children: nil)
+        let snapshotUnstr = try loader.createSnapshot(resolvedUnstr)
 
         #expect(snapshotUnstr.topology == .unstructured)
 
@@ -83,7 +83,7 @@ struct DesignLoaderSnapshotCreationTests {
             structuralType: .node // explicitly specified
         )
 
-        let snapshotNode = try loader.createSnapshot(resolvedNode, children: nil)
+        let snapshotNode = try loader.createSnapshot(resolvedNode)
 
         #expect(snapshotNode.topology == .node)
 
@@ -95,7 +95,7 @@ struct DesignLoaderSnapshotCreationTests {
             structureReferences: [ObjectID(10), ObjectID(20)]
         )
 
-        let snapshotEdge = try loader.createSnapshot(resolvedEdge, children: nil)
+        let snapshotEdge = try loader.createSnapshot(resolvedEdge)
 
         #expect(snapshotEdge.topology == .edge(ObjectID(10), ObjectID(20)))
     }
@@ -112,7 +112,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.structuralTypeMismatch(.unstructured)) {
-            _ = try loader.createSnapshot(resolvedNode, children: nil)
+            _ = try loader.createSnapshot(resolvedNode)
         }
 
         let resolvedUnstr = DesignLoader.ResolvedObjectSnapshot(
@@ -123,7 +123,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.structuralTypeMismatch(.node)) {
-            _ = try loader.createSnapshot(resolvedUnstr, children: nil)
+            _ = try loader.createSnapshot(resolvedUnstr)
         }
 
         let resolvedEdgeType = DesignLoader.ResolvedObjectSnapshot(
@@ -134,7 +134,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.structuralTypeMismatch(.edge)) {
-            _ = try loader.createSnapshot(resolvedEdgeType, children: nil)
+            _ = try loader.createSnapshot(resolvedEdgeType)
         }
     }
 
@@ -151,7 +151,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.invalidStructuralType) {
-            _ = try loader.createSnapshot(resolvedEmpty, children: nil)
+            _ = try loader.createSnapshot(resolvedEmpty)
         }
 
         let resolvedOne = DesignLoader.ResolvedObjectSnapshot(
@@ -163,7 +163,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.invalidStructuralType) {
-            _ = try loader.createSnapshot(resolvedOne, children: nil)
+            _ = try loader.createSnapshot(resolvedOne)
         }
 
         let resolvedTooMany = DesignLoader.ResolvedObjectSnapshot(
@@ -175,7 +175,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.invalidStructuralType) {
-            _ = try loader.createSnapshot(resolvedTooMany, children: nil)
+            _ = try loader.createSnapshot(resolvedTooMany)
         }
     }
 
@@ -191,7 +191,7 @@ struct DesignLoaderSnapshotCreationTests {
         )
 
         #expect(throws: DesignLoaderError.ItemError.unknownObjectType("NonExistentType")) {
-            _ = try loader.createSnapshot(resolved, children: nil)
+            _ = try loader.createSnapshot(resolved)
         }
     }
 
@@ -207,39 +207,9 @@ struct DesignLoaderSnapshotCreationTests {
             attributes: ["name": Variant("test"), "value": Variant(42)]
         )
 
-        let snapshot = try loader.createSnapshot(resolved, children: nil)
+        let snapshot = try loader.createSnapshot(resolved)
 
         #expect(snapshot.attributes["name"] == Variant("test"))
         #expect(snapshot.attributes["value"] == Variant(42))
-    }
-
-    @Test("Snapshot with children")
-    func snapshotWithChildren() async throws {
-        let resolved = DesignLoader.ResolvedObjectSnapshot(
-            snapshotID: ObjectSnapshotID(100),
-            objectID: ObjectID(10),
-            typeName: "TestNode",
-            structuralType: .node,
-        )
-
-        let children = [ObjectID(20), ObjectID(30), ObjectID(40)]
-        let snapshot = try loader.createSnapshot(resolved, children: children)
-
-        #expect(Array(snapshot.children) == [ObjectID(20), ObjectID(30), ObjectID(40)])
-    }
-
-    @Test("Snapshot with parent")
-    func snapshotWithParent() async throws {
-        let resolved = DesignLoader.ResolvedObjectSnapshot(
-            snapshotID: ObjectSnapshotID(200),
-            objectID: ObjectID(20),
-            typeName: "TestNode",
-            structuralType: .node,
-            parent: ObjectID(10)
-        )
-
-        let snapshot = try loader.createSnapshot(resolved, children: nil)
-
-        #expect(snapshot.parent == ObjectID(10))
     }
 }

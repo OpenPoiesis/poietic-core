@@ -11,7 +11,7 @@ extension TransientPlane /* MutableGraph (no longer formally present) */ {
     /// If the object name is provided, then attribute `name` of the
     /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
-    /// - SeeAlso: ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
+    /// - SeeAlso: ``TransientPlane/create(_:objectID:snapshotID:topology:attributes:)``
     /// - Precondition: Plane must contain objects with given origin and target object IDs.
     /// - Precondition: The object type must have structural type ``TopologyType/edge``.
     @discardableResult

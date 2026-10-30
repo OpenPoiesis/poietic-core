@@ -8,15 +8,6 @@
 // FIXME: Introduce DesignLoaderError.internalError and use instead of precondition failures (be nicer to the user)
 
 /*
-
- Loader versions:
- 
- 0.0.1:
-    - allow names as IDs
- */
-
-
-/*
  
              validate
                  ↓
@@ -27,8 +18,6 @@
 resolveFrames          resolveObjectSnapshots
      ↓                         ↓
      └────────────┬────────────┘
-                  ↓
-    resolveHierarchy (2 versions)
                   ↓
             createSnapshots
                   ↓
@@ -165,7 +154,7 @@ public class DesignLoader {
             identityStrategy: .requireProvided
         )
 
-        let partialSnapshotResolution = try resolveObjectSnapshots(
+        let snapshotResolution = try resolveObjectSnapshots(
             resolution: validationResolution,
             identities: identityResolution,
         )
@@ -184,12 +173,8 @@ public class DesignLoader {
                 identities: identityResolution,
             )
         }
-        let hierarchicalSnapshots  = try resolveHierarchy(
-            planeResolution: frameResolution,
-            snapshotResolution: partialSnapshotResolution
-        )
         
-        let snapshots = try createSnapshots(resolution: hierarchicalSnapshots)
+        let snapshots = try createSnapshots(resolution: snapshotResolution)
 
         var snapshotMap: [ObjectSnapshotID:ObjectSnapshot] = [:]
         for snapshot in snapshots {
@@ -276,9 +261,8 @@ public class DesignLoader {
     /// 1. Validate snapshots for duplicate IDs.
     /// 2. Reserve identities according to provided ``IdentityStrategy``.
     /// 3. Resolve snapshot references.
-    /// 4. Resolve snapshot hierarchy.
-    /// 5. Create object snapshot instances.
-    /// 6. Insert snapshots into plane.
+    /// 4. Create object snapshot instances.
+    /// 5. Insert snapshots into plane.
     ///
     /// - Note: The references of ``rawSnapshots`` are resolved _only_ within the provided object
     ///  snapshots. Any references from ``rawSnapshots`` that are not contained in the input
@@ -310,18 +294,21 @@ public class DesignLoader {
             resolution: validationResolution,
             identities: identityResolution
         )
+        
+        // Validate duplicates of object ID within all snapshots. Design is considered single-plane
+        var seen: Set<ObjectID> = Set()
+        for (i, snapshot) in snapshotResolution.objectSnapshots.enumerated() {
+            guard !seen.contains(snapshot.objectID) else {
+                throw .item(.objectSnapshots, i, .duplicateObject(i))
+            }
+            seen.insert(snapshot.objectID)
+        }
 
-        let completeSnapshots = try resolveHierarchy(
-            resolution: snapshotResolution
-        )
-
-        let snapshots = try createSnapshots(
-            resolution: completeSnapshots
-        )
+        let snapshots = try createSnapshots(resolution: snapshotResolution)
         
         // FIXME: [IMPORTANT] Release reservations above ^^ to here.
 
-        plane.unsafeInsert(snapshots, reservations: completeSnapshots.identities.reserved)
+        plane.unsafeInsert(snapshots, reservations: snapshotResolution.identities.reserved)
         
         do {
             // TODO: [WIP] Is this needed? The caller is validating the plane anyway before accept().
@@ -403,119 +390,6 @@ public class DesignLoader {
             ids.append(snapshotID)
         }
         return ids
-    }
-    
-    // MARK: - Hierarchy
-    /// Resolve parent-child hierarchy of object snapshots.
-    ///
-    /// The method requires the planes to be resolved.
-    internal func resolveHierarchy(planeResolution: PlaneResolution,
-                                   snapshotResolution: PartialSnapshotResolution)
-    throws (DesignLoaderError) -> SnapshotHierarchyResolution
-    {
-        // Map of all snapshots in all planes. `nil` means "Snapshot was considered but has
-        // no children". Empty array should not happen.
-        var allChildrenMap: [ObjectSnapshotID:[ObjectID]?] = [:]
-        
-        for (planeIndex, plane) in planeResolution.planes.enumerated() {
-            let planeChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
-            let snapshots: [ResolvedObjectSnapshot] = plane.snapshots.compactMap {
-                snapshotResolution[$0]
-            }
-            precondition(snapshots.count == plane.snapshots.count, "Broken snapshot resolution")
-            
-            do {
-                planeChildrenMap = try resolveChildren(
-                    snapshots: snapshots,
-                    snapshotResolution: snapshotResolution
-                )
-            }
-            catch {
-                throw .item(.objectSnapshots, error.index, error.error)
-            }
-            
-            
-            for snapshotID in plane.snapshots {
-                let children = planeChildrenMap[snapshotID]
-                if let seen = allChildrenMap[snapshotID], seen != children {
-                    throw .item(.planes, planeIndex, .childrenMismatch)
-                }
-                allChildrenMap[snapshotID] = children
-            }
-        }
-        
-        
-        return SnapshotHierarchyResolution(
-            objectSnapshots: snapshotResolution.objectSnapshots,
-            children: allChildrenMap.compactMapValues { $0 },
-            identities: snapshotResolution.identities
-        )
-    }
-    
-    // Resolve all children in the resolution without planes.
-    internal func resolveHierarchy(resolution: PartialSnapshotResolution)
-    throws (DesignLoaderError) -> SnapshotHierarchyResolution
-    {
-        let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
-        do {
-            childrenMap = try resolveChildren(snapshots: resolution.objectSnapshots,
-                                              snapshotResolution: resolution)
-        }
-        catch {
-            throw .item(.objectSnapshots, error.index, error.error)
-        }
-        return SnapshotHierarchyResolution(
-            objectSnapshots: resolution.objectSnapshots,
-            children: childrenMap,
-            identities: resolution.identities
-        )
-    }
-    
-    /// Resolve children references within a group of objects.
-    ///
-    /// The group of objects is typically a plane.
-    ///
-    /// This method requires that the ``LoadingContext/parents`` has been populated.
-    ///
-    /// - Parameters:
-    ///     - snapshotIndices: Indices of snapshots within a plane (or some other similar
-    ///         collection) to the list of all snapshots. See: ``RawDesign/snapshots``.
-    ///     - objectSnapshots: All object snapshots.
-    ///
-    /// - Throws an error with offending snapshot index, where the index is referring to
-    ///   an index in ``StagingSnapshotResolution/identities`` – that is, global snapshot index.
-    ///
-    internal func resolveChildren(snapshots: [ResolvedObjectSnapshot],
-                                  snapshotResolution: PartialSnapshotResolution)
-    throws (DesignLoaderError.IndexedItemError) -> [ObjectSnapshotID:[ObjectID]]
-    {
-        var objectToSnapshot: [ObjectID:ObjectSnapshotID] = [:]
-        var childrenMap: [ObjectSnapshotID:[ObjectID]] = [:]
-        
-        for (index, snapshot) in snapshots.enumerated() {
-            // FIXME: [IMPORTANT] Fix this exception - add new dupe with oid
-            guard objectToSnapshot[snapshot.objectID] == nil else {
-                throw DesignLoaderError.IndexedItemError(index, .duplicateObject(index))
-            }
-//            assert(objectToSnapshot[snapshot.objectID] == nil)
-            objectToSnapshot[snapshot.objectID] = snapshot.snapshotID
-        }
-        
-        for snapshot in snapshots {
-            guard let parentID = snapshot.parent else { continue }
-            guard let parentSnapshotID = objectToSnapshot[parentID] else {
-                guard let index = snapshotResolution.identities.snapshotIndex[snapshot.snapshotID] else {
-                    preconditionFailure("Broken snapshot resolution")
-                }
-                // Use "global" snapshot index for meaningful error propagation.
-                throw DesignLoaderError.IndexedItemError(index, .unknownParent)
-            }
-            
-            let childObjectID = snapshot.objectID
-            childrenMap[parentSnapshotID, default: []].append(childObjectID)
-        }
-        assert(childrenMap.values.allSatisfy { !$0.isEmpty })
-        return childrenMap
     }
     
     internal func insertPlanes(resolvedPlanes: [ResolvedPlane],

@@ -70,8 +70,8 @@ struct RawDesignExpoerterTest {
     
     @Test func extractPruning() async throws {
         let design = Design(metamodel: TestDomain.TestMetamodel)
-        let parent = ObjectSnapshot(type: TestDomain.Types.TestUnstructured, snapshotID: 100, objectID: 10, children: [ObjectID(11)])
-        let child = ObjectSnapshot(type: TestDomain.Types.TestUnstructured, snapshotID: 101, objectID: 11, parent: ObjectID(10))
+        let parent = ObjectSnapshot(type: TestDomain.Types.TestUnstructured, snapshotID: 100, objectID: 10)
+        let child = ObjectSnapshot(type: TestDomain.Types.TestUnstructured, snapshotID: 101, objectID: 11)
         let node1 = ObjectSnapshot(type: TestDomain.Types.TestNode, snapshotID: 102, objectID: 12)
         let node2 = ObjectSnapshot(type: TestDomain.Types.TestNode, snapshotID: 103, objectID: 13)
         let edge = ObjectSnapshot(type: TestDomain.Types.TestEdge, snapshotID: 104, objectID: 14, topology: .edge(node1.objectID, node2.objectID))
@@ -92,14 +92,6 @@ struct RawDesignExpoerterTest {
 
         let extract3: [RawSnapshot] = extractor.extractPruning(objects: [edge.objectID], plane: plane)
         #expect(extract3.map { $0.objectID } == [])
-
-        // Parent-child
-        let extract4: [RawSnapshot] = extractor.extractPruning(objects: [parent.objectID, child.objectID], plane: plane)
-        #expect(extract4.map { $0.parent } == [nil, .id(parent.objectID)])
-
-        let extract5: [RawSnapshot] = extractor.extractPruning(objects: [child.objectID], plane: plane)
-        #expect(extract5.map { $0.parent } == [nil])
-
     }
 
 }

@@ -222,13 +222,12 @@ public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
 ///   design conforms to.
 /// - `id` _(recommended)_: Object ID, if not provided, one will be generated during
 ///   loading, but the object can not be referenced to within structural references
-///   (edges, parent/child). Can be an int or a string.
+///   (edges). Can be an int or a string.
 /// - `snapshot_id` _(recommended)_: snapshot ID, if not provided, one will be
 ///   generated during loading. Can be an int or a string.
 /// - `topology`_(recommended)_: Topology type: `node`, `edge`, `unstructured`. See ``RawTopology``.
 /// - `origin` (structural): If the topology is an edge, the property references its origin object ID.
 /// - `target` (structural): If the topology is an edge, the property references its target object ID.
-/// - `parent` (optional): reference to object's parent object ID.
 /// - `attributes`: a dictionary where keys are attribute names and values are
 ///    variants. See below how variants are encoded.
 ///

@@ -91,7 +91,7 @@ extension ObjectTypeError: IssueConvertible {
 /// - SeeAlso: ``ConstraintChecker/validate(_:)``
 ///
 public enum PlaneValidationError: Error {
-    /// Topological references such as edge endpoints, parent-child are invalid.
+    /// Topological references such as edge endpoints invalid.
     ///
     /// When this error happens, it is not possible to do further diagnostics. It usually means
     /// a programming error.

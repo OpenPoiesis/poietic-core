@@ -18,7 +18,6 @@ struct _MakeshiftPersistentSnapshot: Codable {
     let structuralType: String
     let origin: ObjectID?
     let target: ObjectID?
-    let parent: ObjectID?
     let attributes: [String:Variant]
 
     enum CodingKeys: String, CodingKey {
@@ -28,7 +27,6 @@ struct _MakeshiftPersistentSnapshot: Codable {
         case structuralType = "structural_type"
         case origin
         case target
-        case parent
         case attributes
     }
     
@@ -54,7 +52,6 @@ struct _MakeshiftPersistentSnapshot: Codable {
             snapshotID: .id(snapshotID),
             objectID: .id(id),
             topology: structure,
-            parent: parent.map { .id($0) },
             attributes: attributes
         )
         return snapshot

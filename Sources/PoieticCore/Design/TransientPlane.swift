@@ -15,10 +15,6 @@ public enum StructuralIntegrityError: Error {
     /// Use ``StructuralValidator/brokenReferences(_:in:)-method`` to investigate.
     ///
     case brokenStructureReference
-    case brokenChild
-    case brokenParent
-    case parentChildMismatch
-    case parentChildCycle
     case edgeEndpointNotANode // TODO: Rename to invalidStructureReferenceTargetType (or simpler)
 }
 
@@ -55,9 +51,8 @@ public enum StructuralIntegrityError: Error {
 ///
 /// - Mutate existing objects in the plane using
 ///   ``TransientPlane/mutate(_:)``.
-/// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
+/// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:topology:attributes:)``
 ///    or ``TransientPlane/insert(_:)``.
-/// - Change parent/child hierarchy.
 ///
 /// Once a transient plane is accepted or discarded, it can no longer be modified.
 ///
@@ -219,18 +214,14 @@ public final class TransientPlane: Plane {
     ///     - type: Object type.
     ///     - objectID: Proposed object ID. If not provided, one will be generated.
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
-    ///     - children: Children of the new object.
     ///     - attributes: Attribute dictionary to be used for object
     ///       initialisation.
-    ///     - parent: Optional parent object in the hierarchy of objects.
     ///     - topology: Structural component of the new object. If not provided,
     ///       then unstructured is used.
     ///
     /// - Note: Attributes are not checked according to the object type during
     ///   object creation. The object is not yet required to satisfy any
     ///   constraints.
-    /// - Note: Existence of the parent is not verified, it will be during the
-    ///   plane insertion.
     ///
     /// - SeeAlso: ``TransientPlane/insert(_:)``
     ///
@@ -242,8 +233,6 @@ public final class TransientPlane: Plane {
                        objectID: ObjectID? = nil,
                        snapshotID: ObjectSnapshotID? = nil,
                        topology: Topology? = nil,
-                       parent: ObjectID? = nil,
-                       children: [ObjectID] = [],
                        attributes: [String:Variant]=[:]) -> TransientObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
         // TODO: Consider throwing an exception instead of having runtime errors
@@ -286,8 +275,6 @@ public final class TransientPlane: Plane {
                                        snapshotID: actualSnapshotID,
                                        objectID: actualID,
                                        topology: actualTopology,
-                                       parent: parent,
-                                       children: children,
                                        attributes: actualAttributes)
         let box = _TransientSnapshotBox(snapshot, isOriginal: false)
         _snapshots.insert(box)
@@ -312,9 +299,7 @@ public final class TransientPlane: Plane {
     /// If the requirements are not met, then it is considered a programming
     /// error.
     ///
-    /// - Precondition: References such as edge endpoints, parent, children
-    ///   must be valid within the plane.
-    ///
+    /// - Precondition: References such as edge endpoints must be valid within the plane.
     /// - SeeAlso: ``StructuralValidator/validate(_:in:)``,
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
@@ -380,16 +365,9 @@ public final class TransientPlane: Plane {
     /// The method removes the object with given object ID. Then traverses
     /// and removes all the objects that depend on the removed object.
     ///
-    /// All object's children will be removed as well.
-    ///
-    /// All parents from which an object is removed will be mutated using
-    /// ``mutate(_:)``.
-    ///
     /// - Returns: A list of objects removed from the plane except the object
     ///   asked to be removed.
-    ///
     /// - Complexity: Worst case O(n^2), typically O(n).
-    ///
     /// - Precondition: The plane state must be ``State/transient``.
     ///
     @discardableResult
@@ -415,14 +393,6 @@ public final class TransientPlane: Plane {
             }
             
             removed.insert(garbageID)
-            
-            if let parentID = garbage.parent, !removed.contains(parentID) {
-                let parent = mutate(parentID)
-                parent.removeChild(garbageID)
-            }
-            for child in garbage.children where !removed.contains(child) {
-                scheduled.insert(child)
-            }
             
             // Check for dependants (edges)
             //
@@ -465,7 +435,6 @@ public final class TransientPlane: Plane {
     /// identity generator of the associated design.
     ///
     /// - Returns: Newly derived object snapshot.
-    ///
     /// - Precondition: The plane must contain an object with given ID.
     /// - Precondition: The plane state must be ``State/transient``.
     ///
@@ -501,115 +470,7 @@ public final class TransientPlane: Plane {
         return cell.isMutable
     }
     
-    // MARK: - Hierarchy
-    //
-    
-    /// Assign a child to a parent object.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// both parent and a child.
-    ///
-    /// - Precondition: The child object must not have a parent.
-    /// - ToDo: Check for cycles.
-    ///
-    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientPlane/removeChild(_:from:)``,
-    /// ``TransientPlane/removeFromParent(_:)``,
-    /// ``TransientPlane/removeCascading(_:)``.
-    ///
-    public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
-        let parent = self.mutate(parentID)
-        let child = self.mutate(childID)
-        
-        precondition(child.parent == nil)
-        
-        child.parent = parentID
-        parent.addChild(childID)
-    }
-    
-    /// Remove an object `childID` from parent `parentID`.
-    ///
-    /// The child is removed from the list of children of the parent. Child's
-    /// parent will be set to `nil`.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// both parent and a child.
-    ///
-    /// The object will remain in the plane, will not be deleted.
-    ///
-    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientPlane/addChild(_:to:)``,
-    /// ``TransientPlane/removeFromParent(_:)``,
-    /// ``TransientPlane/removeCascading(_:)``.
-    ///
-    public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
-        let parent = self.mutate(parentID)
-        let child = self.mutate(childID)
-        
-        precondition(child.parent == parentID)
-        precondition(parent.children.contains(childID))
-        
-        parent.removeChild(childID)
-        child.parent = nil
-    }
-    
-    /// Move a child to a different parent.
-    ///
-    /// If the child has a parent, then the child will be removed from the
-    /// parent's children list.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// a child. Mutable version of the old parent will be created, if
-    /// necessary.
-    ///
-    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientPlane/addChild(_:to:)``,
-    /// ``TransientPlane/removeChild(_:from:)``,
-    /// ``TransientPlane/removeFromParent(_:)``,
-    /// ``TransientPlane/removeCascading(_:)``.
-    ///
-    public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
-        let child = mutate(childID)
-        if let originalParentID = child.parent {
-            mutate(originalParentID).removeChild(childID)
-        }
-        child.parent = parentID
-        if let parentID {
-            mutate(parentID).addChild(childID)
-        }
-    }
-    
-    /// Removes a child from its parent.
-    ///
-    /// If the child has a parent, it will be removed from the parent's children
-    /// list.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// a child. Mutable version of the old parent will be created, if
-    /// necessary.
-    ///
-    /// The object will remain in the plane, will not be deleted.
-    ///
-    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientPlane/addChild(_:to:)``,
-    /// ``TransientPlane/removeChild(_:from:)``,
-    /// ``TransientPlane/removeCascading(_:)``.
-    ///
-    public func removeFromParent(_ childID: ObjectID) {
-        guard let child = self[childID],
-              let parentID = child.parent,
-              let parent = self[parentID]
-        else {
-            return
-        }
-        if parent.children.contains(childID) {
-            mutate(parentID).removeChild(childID)
-        }
-        
-        mutate(childID).parent = nil
-    }
-    
-    // Graph Protocol
+    // - MARK: - Graph Protocol
     public var edgeIDs: [ObjectID] {
         _snapshots.compactMap {
             $0.topology.type == .edge ? $0.objectID : nil

@@ -49,7 +49,6 @@ import Testing
         }
     }
     
-    // TODO: Test malformed children (or all known raw object values in fact)
     @Test func loadEmpty() throws {
         let data = """
                    {
@@ -121,7 +120,6 @@ import Testing
                             "object_id": "first",
                             "snapshot_id": 10,
                             "structure": "node",
-                            "parent": 20
                         },
                    ]
                    }
@@ -136,7 +134,6 @@ import Testing
         #expect(snapshot.topology == RawTopology("node", references: []))
         #expect(snapshot.objectID == .string("first"))
         #expect(snapshot.snapshotID == .id(10))
-        #expect(snapshot.parent == .id(20))
     }
     @Test func readSnapshotStructure() throws {
         let data = """

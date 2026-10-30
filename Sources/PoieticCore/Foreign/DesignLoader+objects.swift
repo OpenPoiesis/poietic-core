@@ -9,7 +9,7 @@ extension DesignLoader { // Object snapshots
     internal func resolveObjectSnapshots(
         resolution: ValidationResolution,
         identities: IdentityResolution
-    ) throws (DesignLoaderError) -> PartialSnapshotResolution
+    ) throws (DesignLoaderError) -> SnapshotResolution
     {
         // Sanity check
         assert(identities.snapshotIDs.count == resolution.rawSnapshots.count)
@@ -32,7 +32,7 @@ extension DesignLoader { // Object snapshots
             snapshots.append(snapshot)
         }
 
-        return PartialSnapshotResolution(objectSnapshots: snapshots, identities: identities)
+        return SnapshotResolution(objectSnapshots: snapshots, identities: identities)
     }
 
     internal func resolveObjectSnapshot(
@@ -51,18 +51,6 @@ extension DesignLoader { // Object snapshots
             refs.append(id)
         }
 
-        let parentID: ObjectID?
-        
-        if let foreignParent = rawSnapshot.parent {
-            guard let id: ObjectID = identities[foreignParent] else {
-                throw .unknownID(foreignParent)
-            }
-            parentID = id
-        }
-        else {
-            parentID = nil
-        }
-                
         guard let typeName = rawSnapshot.typeName else {
             throw .missingObjectType
         }
@@ -98,7 +86,6 @@ extension DesignLoader { // Object snapshots
             typeName: typeName,
             structuralType: structuralType,
             structureReferences: refs,
-            parent: parentID,
             attributes: attributes
         )
         return snapshot
@@ -108,7 +95,7 @@ extension DesignLoader { // Object snapshots
     ///
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
-    internal func createSnapshots(resolution: SnapshotHierarchyResolution)
+    internal func createSnapshots(resolution: SnapshotResolution)
     throws (DesignLoaderError) -> [ObjectSnapshot]
     {
         var result: [ObjectSnapshot] = []
@@ -117,10 +104,7 @@ extension DesignLoader { // Object snapshots
             let snapshot: ObjectSnapshot
 
             do {
-                snapshot = try createSnapshot(
-                    resolvedSnapshot,
-                    children: resolution.children[resolvedSnapshot.snapshotID]
-                )
+                snapshot = try createSnapshot(resolvedSnapshot)
             }
             catch {
                 throw .item(.objectSnapshots, i, error)
@@ -140,10 +124,8 @@ extension DesignLoader { // Object snapshots
     ///
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
-    internal func createSnapshot(
-        _ resolvedSnapshot: ResolvedObjectSnapshot,
-        children: [ObjectID]?
-    ) throws (DesignLoaderError.ItemError) -> ObjectSnapshot
+    internal func createSnapshot(_ resolvedSnapshot: ResolvedObjectSnapshot)
+    throws (DesignLoaderError.ItemError) -> ObjectSnapshot
     {
         // IMPORTANT: Sync the logic (especially preconditions) as in TransientPlane.create(...)
         // TODO: Consider moving this to Design (as well as its TransientPlane counterpart)
@@ -192,14 +174,11 @@ extension DesignLoader { // Object snapshots
             guard attributes[attribute.name] == nil else { continue }
             attributes[attribute.name] = attribute.defaultValue
         }
-        let children = children ?? []
         
         let snapshot = ObjectSnapshot(type: type,
                                       snapshotID: resolvedSnapshot.snapshotID,
                                       objectID: resolvedSnapshot.objectID,
                                       topology: topology,
-                                      parent: resolvedSnapshot.parent,
-                                      children: children,
                                       attributes: attributes)
         return snapshot
     }

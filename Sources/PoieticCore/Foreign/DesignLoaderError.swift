@@ -93,11 +93,6 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         case duplicateObject(Int) // Index of object within plane/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
 
-        // Hierarchy
-        case unknownParent
-        case childrenMismatch
-//        case duplicateObject(ForeignEntityID)
-
         // Other
         case duplicateName(String)
         
@@ -120,10 +115,6 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case let .unknownSnapshotID(id): "Unknown snapshot ID '\(id)'"
             case let .duplicateObject(id): "Duplicate object at index \(id)"
             case let .brokenStructuralIntegrity(error): "Broken structural integrity: \(error)"
-
-            // Hierarchy
-            case .unknownParent: "Unknown parent"
-            case .childrenMismatch: "Children mismatch"
 
             case let .duplicateName(name): "Duplicate name '\(name)'"
             }
@@ -148,10 +139,6 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case .unknownSnapshotID(_): "Make sure all references are valid within the loaded raw design/snapshots"
             case .duplicateObject(_): "Object ID must be unique in a plane or a loading batch"
             case .brokenStructuralIntegrity(_): "The loaded batch is either of a different version, different metamodel or it is corrupted"
-
-            // Hierarchy
-            case .unknownParent: nil
-            case .childrenMismatch: nil
 
             case .duplicateName(_): nil
             }

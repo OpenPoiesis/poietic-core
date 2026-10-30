@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
-import Collections
-
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
@@ -31,9 +29,9 @@ public typealias AttributeKey = String
 ///
 /// ## Attributes and Object-to-Object References
 ///
-/// All object-to-object references are explicitly managed through either
-/// ``topology`` or parent/child relationships. Object attributes can hold any
-/// ``Variant``, they can not formally store references to other objects.
+/// All object-to-object references are explicitly managed through ``topology``.
+/// Object attributes can hold any ``Variant``, they can not formally store references to other
+/// objects.
 ///
 public protocol ObjectProtocol {
     /// Primary object identity.
@@ -77,8 +75,7 @@ public protocol ObjectProtocol {
 
     /// Topological role of the object within a design.
     ///
-    /// This property is the only other property to the parent/child hierarchy,
-    /// where an object can have references to other objects.
+    /// This property is the only other property where an object stores references to other objects.
     ///
     /// Primary content of the design is a graph, which has two kinds of
     /// entities: nodes and edges. From the design content perspective, they
@@ -92,33 +89,6 @@ public protocol ObjectProtocol {
     /// - SeeAlso: ``TransientPlane/removeCascading(_:)``, ``Graph``
     ///
     var topology: Topology { get }
-    
-    /// Parent of an object in a hierarchical structure.
-    ///
-    /// When the object's parent is removed from the design, all its children
-    /// are removed with it, including their dependencies.
-    ///
-    /// - SeeAlso: ``children``,
-    /// ``TransientPlane/addChild(_:to:)``,
-    /// ``TransientPlane/removeChild(_:from:)``,
-    /// ``TransientPlane/removeFromParent(_:)``,
-    /// ``TransientPlane/removeCascading(_:)``
-    ///
-    var parent: ObjectID? { get }
-
-    /// Children of an object in a hierarchical structure.
-    ///
-    /// Children are part of the hierarchical structure of objects. When
-    /// an object is removed from a plane, all its children are removed
-    /// with it, together with all dependencies.
-    ///
-    /// - SeeAlso: ``parent``,
-    /// ``TransientPlane/addChild(_:to:)``,
-    /// ``TransientPlane/removeChild(_:from:)``,
-    /// ``TransientPlane/removeFromParent(_:)``,
-    /// ``TransientPlane/removeCascading(_:)``.
-    ///
-    var children: OrderedSet<ObjectID> { get }
     
     /// Name of an object.
     ///

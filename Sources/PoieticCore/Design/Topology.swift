@@ -31,16 +31,12 @@ public enum TopologyType: String, Equatable, Codable, Sendable {
 /// - Note: There are other topology types considered that have not been
 ///   implemented but might be in the future, such as _proxy_ or a _port_.
 ///
-/// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``
-///
 public enum Topology: Equatable, CustomStringConvertible {
     /// The object has no relationships with other objects,
     /// has no structural dependencies and no objects depend on it.
     ///
     /// Unstructured objects can not be part of a graph, they can not
     /// be referenced by edges.
-    ///
-    /// Object still might be part of a hierarchical parent-child structure.
     ///
     case unstructured
     

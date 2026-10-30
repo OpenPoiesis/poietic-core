@@ -137,11 +137,6 @@ extension Plane {
         ids.filter { contains($0) }
     }
 
-    /// Get list of objects that have no parent.
-    public func top() -> [ObjectSnapshot] {
-        self.filter { $0.parent == nil }
-    }
-    
     /// Get a list of edges that refer to a node.
     ///
     /// To get edges for multiple nodes use ``dependentEdges(_:)``.

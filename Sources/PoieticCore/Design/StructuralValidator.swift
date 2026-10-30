@@ -15,8 +15,6 @@ public struct StructuralValidator {
     ///
     /// What is validated:
     ///
-    /// - Parent exist in the plane.
-    /// - Children exist in the plane.
     /// - If it is an edge: whether origin and target exist in the plane and are of type
     ///   ``TopologyType/node``.
     /// - If it is an ordered set: whether the owner and all IDs exist in the plane.
@@ -45,25 +43,6 @@ public struct StructuralValidator {
                 throw .brokenStructureReference
             }
         }
-
-        for childID in object.children {
-            guard let child = plane[childID] else {
-                throw .brokenChild
-            }
-            guard child.parent == object.objectID else {
-                throw .parentChildMismatch
-            }
-        }
-
-        if let parentID = object.parent {
-            guard let parent = plane[parentID] else {
-                throw .brokenParent
-            }
-            
-            guard parent.children.contains(object.objectID) else {
-                throw .parentChildMismatch
-            }
-        }
     }
 
     /// Return a list of objects that the provided object refers to and
@@ -76,8 +55,6 @@ public struct StructuralValidator {
     ///
     /// - If the topology type is an edge (``Topology/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectProtocol/children``.
-    /// - The object's parent – ``ObjectProtocol/parent``.
     ///
     public static func brokenReferences(_ object: some ObjectProtocol, in plane: some Plane) -> Set<ObjectID> {
         // NOTE: Sync with brokenReferences() for all snapshots within the plane
@@ -105,16 +82,6 @@ public struct StructuralValidator {
             }
         }
         
-        if let parent = object.parent, !plane.contains(parent) {
-            broken.insert(parent)
-        }
-
-        for id in object.children {
-            if !plane.contains(id) {
-                broken.insert(id)
-            }
-        }
-
         return broken
     }
 
@@ -124,8 +91,6 @@ public struct StructuralValidator {
     ///
     /// - Edge endpoints must exist within the plane and must be nodes.
     /// - Ordered set owner and references must exist in the plane.
-    /// - Children-parent relationship must be mutual.
-    /// - There must be no parent-child cycle.
     ///
     /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
     /// method.
@@ -140,38 +105,8 @@ public struct StructuralValidator {
     /// - SeeAlso: Use ``ConstraintChecker`` to validate design semantics through ``Metamodel``.
     static func validate(snapshots: [ObjectSnapshot], in plane: some Plane)
     throws (StructuralIntegrityError) {
-        // TODO: This is not quite correct, we should be validating within snapshots themselves as well, or not?
-        // Check for parent-child cycles using topological traversal
-        var parents: [(parent: ObjectID, child: ObjectID)] = []
-
         for object in snapshots {
             try validate(object, in: plane)
-            if let parentID = object.parent {
-                parents.append((parent: parentID, child: object.objectID))
-            }
-        }
-
-        // Map: child -> parent
-        let children = Set(parents.map { $0.child })
-        var tops: [ObjectID] = parents.compactMap {
-            if children.contains($0.parent) {
-                nil
-            }
-            else {
-                $0.parent
-            }
-        }
-
-        while !tops.isEmpty {
-            let topParent = tops.removeFirst()
-            for (_, child) in parents.filter({ $0.parent == topParent }) {
-                tops.append(child)
-            }
-            parents.removeAll { $0.parent == topParent }
-        }
-
-        if !parents.isEmpty {
-            throw .parentChildCycle
         }
     }
     
@@ -185,8 +120,6 @@ public struct StructuralValidator {
     ///
     /// - If the topology type is an edge (``Topology/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectProtocol/children``.
-    /// - The object's parent – ``ObjectProtocol/parent``.
     ///
     /// - Note: This is semi-internal function to validate correct workings
     ///   of the system. You should rarely use it. Typical scenario when you
