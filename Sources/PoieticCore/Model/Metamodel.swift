@@ -192,7 +192,8 @@ public final class Metamodel: Sendable {
     {
         var seenTraits: [Trait] = []
         var traitNames: Set<String> = Set()
-
+        var typeNames: Set<String> = Set()
+        
         for trait in traits {
             if let existing = seenTraits.first(where: { $0.name == trait.name }) {
                 precondition(existing === trait,
@@ -209,9 +210,12 @@ public final class Metamodel: Sendable {
                 precondition(traitNames.contains(trait.name),
                              "Missing metamodel trait \(trait.name) for type \(type.name)")
             }
+            typeNames.insert(type.name)
         }
         Self._validateTraitIdentity(knownTraits: traits, types: types)
-
+        Self._validateRuleReferences(typeNames: typeNames, traitNames: traitNames, rules: edgeRules)
+        // TODO: Validate constraints
+        
         self.name = name
         self.version = version
         self.traits = traits
@@ -226,6 +230,31 @@ public final class Metamodel: Sendable {
                 guard knownTraits.contains(where: { $0 === trait }) else {
                     preconditionFailure("Trait \(trait.name) is of a different identity from known trait with same name")
                 }
+            }
+        }
+    }
+    
+    static func _validate(predicate: Predicate,
+                          typeNames: Set<String>,
+                          traitNames: Set<String>,
+                          context: String) {
+        for name in predicate.typeNames {
+            precondition(typeNames.contains(name), "\(context) refers to unknown object type '\(name)'")
+        }
+        for name in predicate.traitNames {
+            precondition(traitNames.contains(name), "\(context) refers to unknown trait '\(name)'")
+        }
+    }
+
+    static func _validateRuleReferences(typeNames: Set<String>, traitNames: Set<String>, rules: [EdgeRule]) {
+        for rule in rules {
+            precondition(typeNames.contains(rule.type.name),
+                         "Unknown edge rule edge type '\(rule.type.name)'")
+            if let predicate = rule.originPredicate {
+                _validate(predicate: predicate, typeNames: typeNames, traitNames: traitNames, context: "edge rule")
+            }
+            if let predicate = rule.targetPredicate {
+                _validate(predicate: predicate, typeNames: typeNames, traitNames: traitNames, context: "edge rule")
             }
         }
     }
