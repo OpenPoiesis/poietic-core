@@ -38,6 +38,31 @@ public struct ConnectorGlyphRule: Sendable {
     }
 }
 
+public struct PictogramRule: Sendable {
+    public let type: ObjectType
+    public let predicate: Predicate?
+    public let pictogramName: String
+    
+    public init(type: ObjectType, predicate: Predicate? = nil, pictogramName: String) {
+        self.type = type
+        self.predicate = predicate
+        self.pictogramName = pictogramName
+    }
+    
+    public func match(_ object: ObjectSnapshot, in plane: some Plane) -> Bool {
+        guard object.type.matches(self.type) else {
+            return false
+        }
+        if let predicate  {
+            if !predicate.match(object, in: plane) {
+                return false
+            }
+        }
+        
+        return true
+    }
+}
+
 public enum DiagramDomain {
     public enum Traits {
         /// Trait for objects that can be presented diagrammatically:
