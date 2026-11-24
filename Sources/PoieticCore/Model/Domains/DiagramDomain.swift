@@ -5,6 +5,64 @@
 //  Created by Stefan Urbanek on 06/06/2023.
 //
 
+public struct ConnectorGlyphRule: Sendable {
+    public let type: ObjectType
+    public let originPredicate: Predicate?
+    public let targetPredicate: Predicate?
+    public let glyphName: String
+    
+    public init(type: ObjectType, origin: Predicate? = nil, target: Predicate? = nil, glyphName: String) {
+        self.type = type
+        self.originPredicate = origin
+        self.targetPredicate = target
+        self.glyphName = glyphName
+    }
+    
+    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in plane: some Plane) -> Bool {
+        guard type.matches(self.type) else {
+            return false
+        }
+        if let predicate = originPredicate {
+            if !predicate.match(origin, in: plane) {
+                return false
+            }
+        }
+        
+        if let predicate = targetPredicate {
+            if !predicate.match(target, in: plane) {
+                return false
+            }
+        }
+
+        return true
+    }
+}
+
+public struct PictogramRule: Sendable {
+    public let type: ObjectType
+    public let predicate: Predicate?
+    public let pictogramName: String
+    
+    public init(type: ObjectType, predicate: Predicate? = nil, pictogramName: String) {
+        self.type = type
+        self.predicate = predicate
+        self.pictogramName = pictogramName
+    }
+    
+    public func match(_ object: ObjectSnapshot, in plane: some Plane) -> Bool {
+        guard object.type.matches(self.type) else {
+            return false
+        }
+        if let predicate  {
+            if !predicate.match(object, in: plane) {
+                return false
+            }
+        }
+        
+        return true
+    }
+}
+
 public enum DiagramDomain {
     public enum Traits {
         /// Trait for objects that can be presented diagrammatically:

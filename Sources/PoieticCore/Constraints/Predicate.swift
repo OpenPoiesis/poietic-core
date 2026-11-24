@@ -14,13 +14,13 @@
 /// let predicate: Predicate = .isType(ObjectType.Auxiliary).or(.isType(ObjectType.Stock))
 /// ```
 ///
-public indirect enum Predicate: Sendable, CustomStringConvertible {
+public indirect enum Predicate: Equatable, Sendable, CustomStringConvertible {
     /// Matches any object unconditionally
     case any
-    /// Matches objects of given object type
-    case isType(ObjectType)
-    /// Matches objects which have given trait.
-    case hasTrait(Trait)
+    /// Matches objects of object type with given name
+    case isType(String)
+    /// Matches objects which have a trait with given name
+    case hasTrait(String)
     /// Logical conjunction of multiple predicates –  all predicates must match.
     case and([Predicate])
     /// Logical disjunction of multiple predicates – at least one of the predicates must match.
@@ -34,10 +34,10 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
         switch self {
         case .any:
             return true
-        case .isType(let type):
-            return object.type.matches(type)
-        case .hasTrait(let trait):
-            return object.type.traits.contains { $0.matches(trait) }
+        case .isType(let name):
+            return object.type.matches(name)
+        case .hasTrait(let name):
+            return object.type.traits.contains { $0.matches(name) }
         case .and(let predicates):
             return predicates.allSatisfy{ $0.match(object, in: plane) }
         case .or(let predicates):
@@ -80,14 +80,60 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
         }
     }
     
+    /// Set of type names that this predicate and its children contain.
+    public var typeNames: Set<String> {
+        var result: Set<String> = Set()
+        
+        switch self {
+        case .and(let predicates):
+            for predicate in predicates {
+                result.formUnion(predicate.typeNames)
+            }
+        case .any: break
+        case .hasTrait(_): break
+        case .isType(let name):
+            result.insert(name)
+        case .not(let predicate):
+            result.formUnion(predicate.typeNames)
+        case .or(let predicates):
+            for predicate in predicates {
+                result.formUnion(predicate.typeNames)
+            }
+        }
+        return result
+    }
+
+    /// Set of trait names that this predicate and its children contain.
+    public var traitNames: Set<String> {
+        var result: Set<String> = Set()
+        
+        switch self {
+        case .and(let predicates):
+            for predicate in predicates {
+                result.formUnion(predicate.traitNames)
+            }
+        case .any: break
+        case .hasTrait(let name):
+            result.insert(name)
+        case .isType(_): break
+        case .not(let predicate):
+            result.formUnion(predicate.traitNames)
+        case .or(let predicates):
+            for predicate in predicates {
+                result.formUnion(predicate.traitNames)
+            }
+        }
+        return result
+    }
+
     public var description: String {
         switch self {
         case .any:
             return "ANY"
         case .isType(let type):
-            return "IS(\(type.name))"
+            return "TYPE(\(type))"
         case .hasTrait(let trait):
-            return "HAS(\(trait.name))"
+            return "TRAIT(\(trait))"
         case .and(let predicates):
             let items = predicates.map { $0.description }.joined(separator: " AND ")
             return "(\(items))"
