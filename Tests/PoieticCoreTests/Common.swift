@@ -138,12 +138,12 @@ enum TestDomain {
             EdgeRule(type: Types.Arrow),
             EdgeRule(type: Types.TestEdge),
             EdgeRule(type: Types.Flow,
-                     origin: .isType(Types.FlowRate),
+                     origin: .isType("FlowRate"),
                      outgoing: .one,
-                     target: .isType(Types.Stock)),
+                     target: .isType("Stock")),
             EdgeRule(type: Types.Flow,
-                     origin: .isType(Types.Stock),
-                     target: .isType(Types.FlowRate),
+                     origin: .isType("Stock"),
+                     target: .isType("FlowRate"),
                      incoming: .one)
         ]
         

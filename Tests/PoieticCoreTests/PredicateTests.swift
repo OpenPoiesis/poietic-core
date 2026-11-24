@@ -40,12 +40,12 @@ import Testing
         #expect(!predicate.match(empty, in: frame))
     }
     @Test func typePredicate() throws {
-        #expect(Predicate.isType(TestDomain.Types.TestUnstructured).match(empty, in: frame))
-        #expect(!Predicate.isType(TestDomain.Types.TestEdge).match(empty, in: frame))
+        #expect(Predicate.isType("TestUnstructured").match(empty, in: frame))
+        #expect(!Predicate.isType("TestEdge").match(empty, in: frame))
     }
     @Test func traitPredicate() throws {
-        #expect(Predicate.hasTrait(TestDomain.Traits.DefaultText).match(textObject, in: frame))
-        #expect(!Predicate.hasTrait(TestDomain.Traits.NoDefaultText).match(textObject, in: frame))
+        #expect(Predicate.hasTrait("DefaultText").match(textObject, in: frame))
+        #expect(!Predicate.hasTrait("NoDefaultText").match(textObject, in: frame))
     }
 
 }
